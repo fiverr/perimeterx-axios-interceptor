@@ -1,0 +1,26 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:12
+
+version: 2.1
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm i
+      - run:
+          name: Test
+          command: npm t
+      - run:
+          name: Check code syntax
+          command: npm run lint -- --plugin log
+
+workflows:
+  version: 2.1
+  ci-cd:
+    jobs:
+      - test
