@@ -1,15 +1,20 @@
 const fulfilled = require('./lib/fulfilled');
 const rejected = require('./lib/rejected');
 
+/**
+ * attached - a collection of axios instances which were attached the PerimeterX interceptor
+ * @type {Map}
+ */
 const attached = new Map();
 
 /**
+ * Attach PerimeterX interceptor to an axios instance
  * @param {Axios}    axios instance
- * @param {Function} [o.before] Called before the process starts, if it returns false it cancels the popup
+ * @param {Function} [o.filter] Called before the process starts, when returns false it cancels the popup
  * @param {Function} [o.onsuccess] Called when challenge was solved successfully
  * @param {Function} [o.onfailure] Called when challenge was submitted but failed
  * @param {Function} [o.onerror]   Called with any error thrown by the flow
- * @param {Boolean}  [o.disableCss=false] Whether to cancel the dialog CSS
+ * @param {String}   [o.customClass] Custom class name for the dialog
  * @returns self
  *
  * @example
@@ -18,17 +23,17 @@ const attached = new Map();
  *     onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
  *     onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
  *     onerror: error => logger.error(error),
- *     disableCss: false, // default
+ *     customClass: '',
  * });
  */
 module.exports.attach = function attach(axios, {
-    before = () => true,
+    filter = () => true,
     onsuccess = () => null,
     onfailure = () => null,
     onerror = () => null,
-    disableCss = false
+    customClass = ''
 } = {}) {
-    const context = { axios, before, onsuccess, onfailure, onerror, disableCss };
+    const context = { axios, filter, onsuccess, onfailure, onerror, customClass };
 
     if (!attached.has(axios)) {
         attached.set(
@@ -44,6 +49,7 @@ module.exports.attach = function attach(axios, {
 };
 
 /**
+ * Detach PerimeterX interceptor from an axios instance
  * @param axios Axios instance
  * @returns self
  */
