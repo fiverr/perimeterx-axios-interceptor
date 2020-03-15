@@ -19,7 +19,7 @@ const attached = new Map();
  *
  * @example
  * attach(axios, {
- *     before: () => isbot(navigator.userAgent),
+ *     filter: () => !isbot(navigator.userAgent),
  *     onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
  *     onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
  *     onerror: error => logger.error(error),
