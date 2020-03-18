@@ -8,11 +8,11 @@ import axios from ‘axios’;
 import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
 
 attach(axios, {
-    before: () => isbot(navigator.userAgent),
+    filter: () => !isbot(navigator.userAgent),
     onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
     onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
     onerror: error => logger.error(error),
-    disableCss: false, // default
+    customClass: 'my-challenge-popup',
 });
 ```
 
@@ -21,7 +21,8 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 
 1. Request is blocked by PerimeterX (403)
 1. Add recaptcha container and PerimeterX challenge
-1. After challenge is resolved and user is exonerated - roll back to original request and continue flow
+1. Challenge is resolved by user (user is exonerated)
+1. Replay original request and resolve original promise
 
 | ![](https://user-images.githubusercontent.com/516342/76226762-fd873f80-6226-11ea-83df-2dfbb51b1757.png)
 | -
@@ -44,3 +45,13 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 </dialog>
 <script src="https://captcha.px-cdn.net/<PERIMETERX_APP_IP>/captcha.js"></script>
 ```
+
+### API
+#### `filter` {function}
+Filter function is fired **before** the intercepting function. If filter is passed as an argument, it **must return a truthy value** for the interceptor to fulfil it's role. **Falsy values will result in the interceptor passing the response as is**.
+It's signature includes the following named arguments:
+
+| Name | Type | Meaning | Usage
+| - | - | - | -
+| `path` | string | Request original path | `{ filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path) }`
+| `appId` | string | PerimeterX Application ID | `{ filter: ({ appId }) => appId === window._pxAppId }`
