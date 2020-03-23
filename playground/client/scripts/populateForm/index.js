@@ -7,11 +7,10 @@ import { endpoints } from '../mockRequests';
  */
 export default function populateForm(form) {
     const fragment = document.createDocumentFragment();
-    const select = form.querySelector('select');
     endpoints.forEach(
         ({text, value}) => fragment.appendChild(createOption(text, value))
     );
-    select.appendChild(fragment);
+    form.querySelector('select').appendChild(fragment);
 }
 
 /**

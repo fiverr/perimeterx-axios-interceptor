@@ -5,6 +5,6 @@
  */
 export default (form) => Object.assign(
     ...Array.from(form)
-        .filter((e) => !!e.name)
-        .map((i) => ({[i.name]: i.value}))
+        .filter(({name}) => !!name)
+        .map(({name, value}) => ({[name]: value}))
 );

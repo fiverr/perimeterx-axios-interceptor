@@ -12,9 +12,8 @@ export default function formHandler(form, axios, callback = console.info) {
             event.preventDefault();
             form.classList.add('loading');
             const { endpoint } = serialiseForm(event.target);
-            const url = `${endpoint}`;
 
-            axios.get(url)
+            axios.get(endpoint)
                 .then(({ data }) => form.classList.remove('loading') || callback(data))
                 .catch(({ message }) => form.classList.remove('loading') || callback(message));
         },
