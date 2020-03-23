@@ -21,10 +21,12 @@ export const endpoints = Object.entries({
 
 /**
  * Mock Axios endpoints
+ * @param {import('axios').AxiosInstance} axios
  * @returns {void}
  */
-export default function mockRequests() {
-    moxios.install();
+export default function mockRequests(axios) {
+    moxios.install(axios);
+
     moxios.stubRequest(SIMPLE_SUCCESSFUL_REQUEST, {
         status: 200,
         response: 'Success'
