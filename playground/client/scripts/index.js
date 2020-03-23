@@ -22,10 +22,7 @@ console.debug('Mock API endpoints');
 mockRequests(axios);
 
 const [ form ] = document.forms;
-const textarea = document.querySelector('textarea');
 console.debug('Populate form options');
 populateForm(form);
 console.debug('Attach form handlers');
-formHandler(form, axios, (result) => {
-    textarea.value = JSON.stringify(result);
-});
+formHandler(form, axios);
