@@ -1,5 +1,9 @@
 body, input, select, button, textarea {
-    font: 100 100%/1.4 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+    font: 100 100%/1.8 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
+}
+label {
+    display: inline-block;
+    margin: 0 1em 1em 0;
 }
 textarea {
     width: 100%;

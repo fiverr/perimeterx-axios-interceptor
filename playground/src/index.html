@@ -4,10 +4,18 @@
     <h1>PerimeterX Axios Interceptor</h1>
     <form>
         <label>
-            Select an endpoint:
-            <select name="endpoint"><!-- content filled with Javascript --></select>
+            PerimeterX App ID:
+            <input type="password" placeholder="PX????????" autocomplete="on organization perimeterx-app-id" id="app_id_input">
         </label>
-        <button>Submit</button>
+    </form>
+    <form id="requests_form">
+        <label>
+            Select an endpoint:
+            <select name="endpoint" id="requests_select">
+                <option value="">Reset</option>
+                <!-- content filled with Javascript -->
+            </select>
+        </label>
     </form>
     <textarea></textarea>
     <script src="./scripts/index.js"></script>
