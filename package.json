@@ -15,7 +15,7 @@
     "url": "git+ssh://git@github.com/fiverr/perimeterx-axios-interceptor.git"
   },
   "scripts": {
-    "start": "parcel playground/client/index.html --out-dir playground/dist",
+    "start": "parcel playground/src/index.html --out-dir playground/dist",
     "test": "jest",
     "lint": "eslint '**/*.js'"
   },

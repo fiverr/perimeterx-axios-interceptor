@@ -5,7 +5,7 @@ import serialiseForm from '../serialiseForm';
  * @param {import("axios").AxiosInstance} axios
  */
 export default function formHandler(form, axios) {
-    const textarea = form.querySelector('textarea');
+    const textarea = document.querySelector('textarea');
     function callback(result) {
         form.classList.remove('loading');
         textarea.value = JSON.stringify(result);
