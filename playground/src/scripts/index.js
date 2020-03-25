@@ -5,6 +5,7 @@ import { attach } from '../../..';
 import mockRequests from './mockRequests';
 import formHandler from './formHandler';
 import populateForm from './populateForm';
+import appIdHandler from './appIdHandler';
 
 Object.assign(
     window,
@@ -21,8 +22,19 @@ attach(axios);
 console.debug('Mock API endpoints');
 mockRequests(axios);
 
-const [ form ] = document.forms;
+console.debug('Disable submit for all forms');
+[].forEach.call(
+    document.forms,
+    (form) => form.addEventListener(
+        'submit',
+        (event) => event.preventDefault(),
+        { capture: true }
+    )
+);
+
+console.debug('Attach App ID input handler');
+appIdHandler(window.app_id_input, mockRequests.bind(null, axios));
 console.debug('Populate form options');
-populateForm(form);
+populateForm(window.requests_form);
 console.debug('Attach form handlers');
-formHandler(form, axios);
+formHandler(window.requests_form, window.requests_select, axios);

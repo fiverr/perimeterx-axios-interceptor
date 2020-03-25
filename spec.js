@@ -1,6 +1,8 @@
 const { create } = require('axios');
 const moxios = require('moxios');
-const { attach, detach } = require('.');
+const PXResponse = require('./specHelpers/PXResponse');
+
+let attach, detach;
 
 let axios;
 let resolved = false;
@@ -17,35 +19,13 @@ const REQUEST_PERIMETERX_BLOCK = '/perimeterx-block';
 const REQUEST_PERIMETERX_BLOCK_ALT = '/perimeterx-block-alt';
 const REQUEST_NOT_FOUND = '/not-found';
 const REQUEST_OKAY = '/okay';
-const PX_APP_ID = 'PX_1234';
-
-class PXResponse {
-    constructor() {
-        this.iterations = 0;
-    }
-    get status() {
-        return this.iterations++ === 0
-            ? 403
-            : 200
-        ;
-    }
-    get response() {
-        return this.iterations === 0
-            ? {
-                appId: PX_APP_ID,
-                jsClientSrc: `https://client.perimeterx.net/${PX_APP_ID}/main.min.js`,
-                firstPartyEnabled: 'false',
-                vid: '2b99ec08-3a22-49f0-a289-a4a6c330b059',
-                uuid: '610a4a35-c45f-4cae-bc58-5abac3a4cdcd',
-                hostUrl: 'https://www.website.net',
-                blockScript: `https://captcha.px-cdn.net/${PX_APP_ID}/captcha.js`
-            }
-            : 'success'
-        ;
-    }
-}
 
 describe('perimeterx-axios-interceptor', () => {
+    beforeAll(() => {
+        jest.mock('./lib/openModal', () => jest.fn(() => null));
+        ({ attach, detach } = require('.'));
+
+    });
     beforeEach(() => {
         resolved = false;
         rejected = false;
@@ -60,8 +40,8 @@ describe('perimeterx-axios-interceptor', () => {
             status: 200,
             response: 'Success'
         });
-        moxios.stubRequest(REQUEST_PERIMETERX_BLOCK, new PXResponse());
-        moxios.stubRequest(REQUEST_PERIMETERX_BLOCK_ALT, new PXResponse());
+        moxios.stubRequest(REQUEST_PERIMETERX_BLOCK, new PXResponse({ appId: PXResponse.defaultAppId }));
+        moxios.stubRequest(REQUEST_PERIMETERX_BLOCK_ALT, new PXResponse({ appId: PXResponse.defaultAppId }));
 
         axios = create();
     });
@@ -92,7 +72,7 @@ describe('perimeterx-axios-interceptor', () => {
     it('should bring perimeterx errors to resolve', async() => {
         attach(axios);
         const { data } = await axios.get(REQUEST_PERIMETERX_BLOCK);
-        expect(data).toBe('success');
+        expect(data).toEqual({key: 'balue'});
     });
 
     it('should call filter function', async() => {
@@ -143,7 +123,7 @@ describe('perimeterx-axios-interceptor', () => {
         });
         await axios.get(REQUEST_PERIMETERX_BLOCK).catch(() => null);
         expect(args).toEqual({
-            appId: PX_APP_ID,
+            appId: PXResponse.defaultAppId,
             path: '/perimeterx-block'
         });
     });

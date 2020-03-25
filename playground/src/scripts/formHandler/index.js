@@ -1,24 +1,25 @@
-import serialiseForm from '../serialiseForm';
-
 /**
- * @param {HTMLFormElement} form
+ * @param {HTMLSelectElement} select
  * @param {import("axios").AxiosInstance} axios
  */
-export default function formHandler(form, axios) {
+export default function formHandler(form, select, axios) {
     const textarea = document.querySelector('textarea');
     function callback(result) {
         form.classList.remove('loading');
         textarea.value = JSON.stringify(result);
     }
 
-    form.addEventListener(
-        'submit',
-        (event) => {
-            event.preventDefault();
-            form.classList.add('loading');
-            const { endpoint } = serialiseForm(form);
+    select.addEventListener(
+        'change',
+        () => {
+            if (!select.value) {
+                form.classList.remove('loading');
+                textarea.value = '';
+                return;
+            }
 
-            axios.get(endpoint)
+            form.classList.add('loading');
+            axios.get(select.value)
                 .then(({ data }) => callback(data))
                 .catch(({ message }) => callback(message));
         },

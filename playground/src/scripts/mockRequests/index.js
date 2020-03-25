@@ -1,8 +1,10 @@
 import moxios from 'moxios';
+import PXResponse from '../../../../specHelpers/PXResponse';
 
 const SIMPLE_SUCCESSFUL_REQUEST = '/success';
 const SIMPLE_SERVER_ERROR = '/fail';
 const SIMPLE_FORBIDDEN = '/forbidden';
+const PERIMETERX_BLOCK_AND_EXONERATE = '/pxblock';
 
 /**
  * Endpoint descriptions {text, value}
@@ -11,7 +13,8 @@ const SIMPLE_FORBIDDEN = '/forbidden';
 export const endpoints = Object.entries({
     SIMPLE_SUCCESSFUL_REQUEST,
     SIMPLE_SERVER_ERROR,
-    SIMPLE_FORBIDDEN
+    SIMPLE_FORBIDDEN,
+    PERIMETERX_BLOCK_AND_EXONERATE
 }).map(
     ([key, value]) => ({
         text: key.replace(/_/g, ' ').toLowerCase(),
@@ -24,7 +27,8 @@ export const endpoints = Object.entries({
  * @param {import('axios').AxiosInstance} axios
  * @returns {void}
  */
-export default function mockRequests(axios) {
+export default function mockRequests(axios, appId = PXResponse.defaultAppId) {
+    console.debug(`Stubbing requests with app ID ${appId}`);
     moxios.install(axios);
 
     moxios.stubRequest(SIMPLE_SUCCESSFUL_REQUEST, {
@@ -39,4 +43,5 @@ export default function mockRequests(axios) {
         status: 403,
         response: 'Forbidden'
     });
+    moxios.stubRequest(PERIMETERX_BLOCK_AND_EXONERATE, new PXResponse({ appId }));
 }
