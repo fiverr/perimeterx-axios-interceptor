@@ -17,7 +17,7 @@ module.exports = class PXResponse {
         this.blockResponse = {
             appId,
             jsClientSrc: `https://client.perimeterx.net/${appId}/main.min.js`,
-            firstPartyEnabled: 'false',
+            firstPartyEnabled: false,
             vid: '2b99ec08-3a22-49f0-a289-a4a6c330b059',
             uuid: '610a4a35-c45f-4cae-bc58-5abac3a4cdcd',
             hostUrl: 'https://www.website.net',

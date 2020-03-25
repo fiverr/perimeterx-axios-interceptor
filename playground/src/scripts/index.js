@@ -19,9 +19,6 @@ axios.get = (...args) => wait(200).then(() => get(...args));
 console.debug('Attach axios instance');
 attach(axios);
 
-console.debug('Mock API endpoints');
-mockRequests(axios);
-
 console.debug('Disable submit for all forms');
 [].forEach.call(
     document.forms,
@@ -32,8 +29,13 @@ console.debug('Disable submit for all forms');
     )
 );
 
+console.debug('Search appId in query string');
+const [, appId] = window.location.search.match(/(?:\?|&)appId=(.*)(&|$)/) || [];
+console.debug('Mock API endpoints');
+mockRequests(axios, appId);
 console.debug('Attach App ID input handler');
-appIdHandler(window.app_id_input, mockRequests.bind(null, axios));
+window.app_id_input.value = appId || '';
+appIdHandler(window.app_id_input, mockRequests.bind(null, axios, appId));
 console.debug('Populate form options');
 populateForm(window.requests_form);
 console.debug('Attach form handlers');
