@@ -2,7 +2,7 @@ body, input, select, button, textarea {
     font: 100 100%/1.8 -apple-system, "BlinkMacSystemFont", "Helvetica Neue", "Helvetica", "Lucida Grande", "Arial", sans-serif;
 }
 label {
-    display: inline-block;
+    display: block;
     margin: 0 1em 1em 0;
 }
 textarea {
@@ -13,6 +13,6 @@ textarea {
 form {
     transition: filter .2s;
 }
-form.loading {
+.loading form {
     filter: opacity(0.5);
 }

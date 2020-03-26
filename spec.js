@@ -22,16 +22,13 @@ const REQUEST_OKAY = '/okay';
 
 describe('perimeterx-axios-interceptor', () => {
     beforeAll(() => {
-        jest.mock('./lib/openModal', () => jest.fn(() => null));
+        jest.mock('./lib/openModal', () => jest.fn(() => Promise.resolve()));
         ({ attach, detach } = require('.'));
-
     });
     beforeEach(() => {
         resolved = false;
         rejected = false;
-
         moxios.install();
-
         moxios.stubRequest(REQUEST_NOT_FOUND, {
             status: 404,
             response: 'Not found'
@@ -42,11 +39,13 @@ describe('perimeterx-axios-interceptor', () => {
         });
         moxios.stubRequest(REQUEST_PERIMETERX_BLOCK, new PXResponse({ appId: PXResponse.defaultAppId }));
         moxios.stubRequest(REQUEST_PERIMETERX_BLOCK_ALT, new PXResponse({ appId: PXResponse.defaultAppId }));
-
         axios = create();
     });
-    afterEach(async() => {
+    afterEach(() => {
         moxios.uninstall();
+    });
+    afterAll(() => {
+        jest.unmock('./lib/openModal');
     });
 
     it('should add an interceptor (use), then remove it (eject)', () => {
@@ -72,7 +71,7 @@ describe('perimeterx-axios-interceptor', () => {
     it('should bring perimeterx errors to resolve', async() => {
         attach(axios);
         const { data } = await axios.get(REQUEST_PERIMETERX_BLOCK);
-        expect(data).toEqual({key: 'balue'});
+        expect(data).toEqual('Successful request');
     });
 
     it('should call filter function', async() => {

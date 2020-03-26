@@ -10,8 +10,6 @@
                 PerimeterX App ID:
                 <input type="password" placeholder="PX????????" autocomplete="on organization perimeterx-app-id" id="app_id_input">
             </label>
-        </form>
-        <form id="requests_form">
             <label>
                 Select an endpoint:
                 <select name="endpoint" id="requests_select">
@@ -21,6 +19,17 @@
             </label>
         </form>
         <textarea></textarea>
+        <section>
+            <h2>Instructions</h2>
+            <ul>
+            <li>
+                After trigerring "PerimeterX block and exonerate" use the first option (Reset)
+            </li>
+            <li>
+                Add your app ID to query string for easy refresh: <kbd>http://localhost:1234/?appId=PXXXXXXXXX</kbd>
+            </li>
+            </ul>
+        </section>
         <script src="./scripts/index.js"></script>
     </body>
 </html>
