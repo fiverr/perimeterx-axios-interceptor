@@ -35,9 +35,7 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     >
       • Make sure JavaScript is enabled in your browser.
     </p>
-    <p
-      class=""
-    >
+    <p>
       If you're still having trouble accessing the site, please contact customer support.
     </p>
     <style>
