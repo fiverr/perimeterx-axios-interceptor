@@ -30,7 +30,7 @@ function toggleSettings(boolean) {
                     '1. Disable adblocker',
                     '2. Enable Javascript'
                 ],
-                contactSupport: 'Still having issues? Contact support at support@example.com'
+                suffix: 'Still having issues? Contact support at support@example.com'
             }
         })
         : attach(axios)

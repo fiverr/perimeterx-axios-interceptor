@@ -14,7 +14,11 @@ const attached = new Map();
  * @param {Function} [o.onsuccess] Called when challenge was solved successfully
  * @param {Function} [o.onfailure] Called when challenge was submitted but failed
  * @param {Function} [o.onerror]   Called with any error thrown by the flow
- * @param {object}   [o.modalConfig] Custom class name for the dialog
+ * @param {string}   [o.c.className]  Add custom className to modal
+ * @param {string}   [o.c.title]      Replace or disable default title
+ * @param {string}   [o.c.subtitle]   Replace or disable default subtitle
+ * @param {string[]} [o.c.quickfixes] Replace or disable default quick fixes (list)
+ * @param {string}   [o.c.suffix]     Replace or disable default suffix
  * @returns self
  *
  * @example
@@ -31,7 +35,7 @@ const attached = new Map();
  *             '1. Disable adblocker',
  *             '2. Enable Javascript'
  *         ],
- *         contactSupport: 'Still having issues? Contact support at support@example.com'
+ *         suffix: 'Still having issues? Contact support at support@example.com'
  *     }
  * });
  */
