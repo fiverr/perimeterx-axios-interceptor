@@ -2,15 +2,14 @@ import { endpoints } from '../mockRequests';
 
 /**
  * populateForm: Populate select with options respective to mock endpoints
- * @param {HTMLFormElement} form
  * @returns {void}
  */
-export default function populateForm(form) {
+export default function populateForm() {
     const fragment = document.createDocumentFragment();
     endpoints.forEach(
         ({text, value}) => fragment.appendChild(createOption(text, value))
     );
-    form.querySelector('select').appendChild(fragment);
+    document.querySelector('select').appendChild(fragment);
 }
 
 /**

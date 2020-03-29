@@ -5,7 +5,6 @@ import { attach } from '../../..';
 import mockRequests from './mockRequests';
 import formHandler from './formHandler';
 import populateForm from './populateForm';
-import appIdHandler from './appIdHandler';
 
 Object.assign(
     window,
@@ -35,8 +34,11 @@ console.debug('Mock API endpoints');
 mockRequests(axios, appId);
 console.debug('Attach App ID input handler');
 window.app_id_input.value = appId || '';
-appIdHandler(window.app_id_input, mockRequests.bind(null, axios, appId));
 console.debug('Populate form options');
-populateForm(window.requests_form);
+populateForm();
 console.debug('Attach form handlers');
-formHandler(window.requests_form, window.requests_select, axios);
+formHandler({
+    input: window.app_id_input,
+    select: window.requests_select,
+    axios
+});

@@ -11,10 +11,28 @@ const PX_APP_ID = 'PX_1234';
 module.exports = class PXResponse {
     /**
      * @param {string} [o.appId]
+     * @param {number} [o.failureCount] Amount of times to block before success
      */
-    constructor({ appId = PX_APP_ID } = {}) {
+    constructor({ appId = PX_APP_ID, failureCount = 1 } = {}) {
         this.iterations = 0;
-        this.blockResponse = {
+        this.failureCount = failureCount;
+        this.blockResponse = PXResponse.blockResponse(appId);
+    }
+
+    /**
+     * @returns {string} the default appID
+     */
+    static get defaultAppId() {
+        return PX_APP_ID;
+    }
+
+    /**
+     * PerimeterX 403 response body
+     * @param {string} [appId]
+     * @returns {object}
+     */
+    static blockResponse(appId = PX_APP_ID) {
+        return {
             appId,
             jsClientSrc: `https://client.perimeterx.net/${appId}/main.min.js`,
             firstPartyEnabled: false,
@@ -26,41 +44,17 @@ module.exports = class PXResponse {
     }
 
     /**
-     * @returns {string} the default appID
-     */
-    static get defaultAppId() {
-        return PX_APP_ID;
-    }
-
-    /**
-     * @returns {boolean} even iterations should get blocked
-     */
-    get even() {
-        return this.iterations % 2 === 0;
-    }
-
-    /**
-     * Increment iterations
-     * @returns {void}
-     */
-    increment() {
-        this.iterations++;
-    }
-
-    /**
      * Side effect of incrementing the request count
      * @returns {number} status code
      */
     get status() {
-        const { even } = this;
-        this.increment();
-        return even ? 403 : 200;
+        return this.iterations++ < this.failureCount ? 403 : 200;
     }
 
     /**
      * @returns {json}
      */
     get response() {
-        return this.even ? this.blockResponse : { key: 'balue' };
+        return this.iterations < this.failureCount ? this.blockResponse : 'Successful request';
     }
 };
