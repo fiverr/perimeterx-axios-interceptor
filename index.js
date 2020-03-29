@@ -14,7 +14,7 @@ const attached = new Map();
  * @param {Function} [o.onsuccess] Called when challenge was solved successfully
  * @param {Function} [o.onfailure] Called when challenge was submitted but failed
  * @param {Function} [o.onerror]   Called with any error thrown by the flow
- * @param {String}   [o.customClass] Custom class name for the dialog
+ * @param {object}   [o.modalConfig] Custom class name for the dialog
  * @returns self
  *
  * @example
@@ -23,7 +23,16 @@ const attached = new Map();
  *     onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
  *     onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
  *     onerror: error => logger.error(error),
- *     customClass: '',
+ *     modalConfig: {
+ *         className: 'my-challenge-popup',
+ *         title: 'Are you human?',
+ *         subtitle: 'Please complete the challenge',
+ *         quickfixes: [
+ *             '1. Disable adblocker',
+ *             '2. Enable Javascript'
+ *         ],
+ *         contactSupport: 'Still having issues? Contact support at support@example.com'
+ *     }
  * });
  */
 module.exports.attach = function attach(axios, {
@@ -31,9 +40,9 @@ module.exports.attach = function attach(axios, {
     onsuccess = () => null,
     onfailure = () => null,
     onerror = () => null,
-    customClass = ''
+    modalConfig = {}
 } = {}) {
-    const context = { axios, filter, onsuccess, onfailure, onerror, customClass };
+    const context = { axios, filter, onsuccess, onfailure, onerror, modalConfig };
 
     if (!attached.has(axios)) {
         attached.set(

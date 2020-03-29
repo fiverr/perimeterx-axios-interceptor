@@ -16,3 +16,11 @@ form {
 .loading form {
     filter: opacity(0.5);
 }
+.my-challenge-popup {
+    position: absolute;
+    top: 50%;
+
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}

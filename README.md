@@ -9,10 +9,20 @@ import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
 
 attach(axios, {
     filter: () => !isbot(navigator.userAgent),
-    onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
-    onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
     onerror: error => logger.error(error),
-    customClass: 'my-challenge-popup',
+    onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
+    onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
+    simulate: true,
+    modalConfig: {
+        className: 'my-challenge-popup',
+        title: 'Are you human?',
+        subtitle: 'Please complete the challenge',
+        quickfixes: [
+            '1. Disable adblocker',
+            '2. Enable Javascript'
+        ],
+        contactSupport: 'Still having issues? Contact support at support@example.com'
+    }
 });
 ```
 
