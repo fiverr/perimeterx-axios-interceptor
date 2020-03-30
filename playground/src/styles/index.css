@@ -16,3 +16,13 @@ form {
 .loading form {
     filter: opacity(0.5);
 }
+dialog.my-challenge-popup {
+    font-size: .9em;
+}
+dialog.my-challenge-popup > div {
+    border: 1px solid black;
+    border-radius: 3px;
+}
+dialog.my-challenge-popup .title {
+    font-weight: bold;
+}

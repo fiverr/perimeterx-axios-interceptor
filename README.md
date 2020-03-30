@@ -9,10 +9,20 @@ import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
 
 attach(axios, {
     filter: () => !isbot(navigator.userAgent),
-    onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
-    onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
     onerror: error => logger.error(error),
-    customClass: 'my-challenge-popup',
+    onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
+    onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
+    simulate: true,
+    modalConfig: {
+        className: 'my-challenge-popup',
+        title: 'Are you human?',
+        subtitle: 'Please complete the challenge',
+        quickfixes: [
+            '1. Disable adblocker',
+            '2. Enable Javascript'
+        ],
+        suffix: 'Still having issues? Contact support at support@example.com'
+    }
 });
 ```
 
@@ -29,19 +39,16 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 
 ```html
 <dialog class="perimeterx-async-challenge" open>
-    <h1>One Small Step</h1>
-    <h2>Please check the box below to continue your normal visit</h2>
-    <p>Don't worry - you're one click away.</p>
-    <div id="px-captcha"></div>
-    <aside>
-        <p>We're dedicated to keeping the site safe from malicious visitors. Something in your behaviour has triggered our protection systems - We apologise for any inconvenience this process may have caused.</p>
-        <ul>
-            <li>Ad blocking or ad filtering software may interfere with our ability to identify you as human. Please exclude this website.</li>
-            <li>Modifying your headers or user agent may trigger some of our detection tools. Make sure you don't have any browser extensions tampering with those.</li>
-            <li>Make sure JavaScript is enabled in your browser.</li>
-            <li>If you're still having trouble accessing the site, please contact customer support.</li>
-        </ul>
-    </aside>
+  <div>
+    <p class="title">One Small Step</p>
+    <p class="subtitle">Please check the box below to continue your normal visit</p>
+    <div id="px-captcha" class="challenge-box">
+    <p class="quickfix">• Please exclude this website from ad blocking or ad filtering software.</p>
+    <p class="quickfix">• Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
+    <p class="quickfix">• Make sure JavaScript is enabled in your browser.</p>
+    <p>If you're still having trouble accessing the site, please contact customer support.</p>
+    <style> {...} </style>
+  </div>
 </dialog>
 <script src="https://captcha.px-cdn.net/<PERIMETERX_APP_IP>/captcha.js"></script>
 ```
