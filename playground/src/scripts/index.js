@@ -5,6 +5,7 @@ import { attach, detach } from '../../..';
 import mockRequests from './mockRequests';
 import formHandler from './formHandler';
 import populateForm from './populateForm';
+import { config, useCustomModal, simulate } from './config';
 
 Object.assign(
     window,
@@ -15,29 +16,25 @@ Object.assign(
 const { get } = axios;
 axios.get = (...args) => wait(200).then(() => get(...args));
 
+window.toggle_custom_settings.addEventListener('change', () => toggleSettings(window.toggle_custom_settings.checked));
 function toggleSettings(boolean) {
     console.debug('Detach axios instance');
     detach(axios);
-
-    console.debug(`Attach axios instance with ${boolean ? 'custom' : 'default'} settings`);
-    boolean
-        ? attach(axios, {
-            modalConfig: {
-                className: 'my-challenge-popup',
-                title: 'Are you human?',
-                subtitle: 'Please complete the challenge',
-                quickfixes: [
-                    '1. Disable adblocker',
-                    '2. Enable Javascript'
-                ],
-                suffix: 'Still having issues? Contact support at support@example.com'
-            }
-        })
-        : attach(axios)
-    ;
+    useCustomModal(boolean);
+    console.debug('Reattach axios instance');
+    attach(axios, config);
 }
-toggleSettings();
-window.toggle_custom_settings.addEventListener('change', () => toggleSettings(window.toggle_custom_settings.checked));
+
+window.toggle_simulate_mode.addEventListener('change', () => toggleSimulate(window.toggle_simulate_mode.checked));
+function toggleSimulate(boolean) {
+    console.debug('Detach axios instance');
+    detach(axios);
+    simulate(boolean);
+    console.debug('Reattach axios instance');
+    attach(axios, config);
+}
+
+attach(axios, config);
 
 console.debug('Disable submit for all forms');
 [].forEach.call(

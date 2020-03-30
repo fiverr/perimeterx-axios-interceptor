@@ -10,6 +10,7 @@ import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
 attach(axios, {
     filter: () => !isbot(navigator.userAgent),
     onerror: error => logger.error(error),
+    onintercept: () => stats.count('axios.interceptor.perimeterx.intercept', 1),
     onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
     onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
     simulate: true,
@@ -54,7 +55,11 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 ```
 
 ### API
-#### `filter` {function}
+#### 1st argument: `axios`
+This is the Axios instance this plugin will intercept. If you use a global axios instance, just pass that one in
+#### 2nd argument: options
+This is an optional object. All of its properties are also optional:
+##### `filter` {function}
 Filter function is fired **before** the intercepting function. If filter is passed as an argument, it **must return a truthy value** for the interceptor to fulfil it's role. **Falsy values will result in the interceptor passing the response as is**.
 It's signature includes the following named arguments:
 
@@ -62,3 +67,51 @@ It's signature includes the following named arguments:
 | - | - | - | -
 | `path` | string | Request original path | `{ filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path) }`
 | `appId` | string | PerimeterX Application ID | `{ filter: ({ appId }) => appId === window._pxAppId }`
+
+##### `onerror` {function}
+This function is called when an internal error happened with this interceptor
+The signature includes the error:
+```js
+{ onerror: (error) => logger.error(error) }
+```
+##### `onintercept` {function}
+This function is called on every time a request is recognised as a PerimeterX block.
+The signature includes the original request object (axios.config):
+```js
+{ onintercept: (request) => logger.info({ message: 'Axios intercepted a PerimeterX block response', url: request.url }) }
+```
+##### `onsuccess` {function}
+This function is called when a challenge was successfully completed.
+The signature includes the original request object (axios.config):
+```js
+{ onsuccess: (request) => logger.info({ message: 'Axios interceptor exonerated request', url: request.url }) }
+```
+##### `onfailure` {function}
+This function is called when a challenge was successfully completed.
+The signature includes the original request object (axios.config) and the rejection error:
+```js
+{ onfailure: (request, error) => logger.info({ message: 'Axios interceptor failed to exonerate request', url: request.url, stack: error.stack }) }
+```
+##### `simulate` {boolean}
+Set "simulate" to a truthy value to allow monitoring without prompting users with exoneration.
+The callback `onintercept` will fire, the rest will not. The promise will be rejected with the PerimeterX 403 response.
+##### `modalConfig` {object}
+This object allows configuration of the modal GUI:
+
+- className (`{string}`): Add custom className to modal
+    - **Default**: None
+- title (`{string}`): Replace or disable default title
+    - **Default**: "One Small Step"
+- subtitle (`{string}`): Replace or disable default subtitle
+    - **Default**: "Please check the box below to continue your normal visit"]
+- quickfixes (`{string[]}`): Replace or disable default quick fixes (list)
+    - **Default**:
+        - "• Please exclude this website from ad blocking or ad filtering software."
+        - "• Make sure you don't have any browser extensions tampering with request headers or user agent string.",
+        - "• Make sure JavaScript is enabled in your browser."
+- suffix (`{string}`): Replace or disable default suffix
+    - **Default**: "If you're still having trouble accessing the site, please contact customer support."
+- timeout (`{number}`): Time, in milliseconds, to allow PerimeterX script to load before aborting
+    - **Default**: 3000 (3 seconds)
+
+> Setting "title", "subtitle", "quickfixes", or "suffix" to a falsy value (null, empty string...) will prevent them from being rendered to GUI.
