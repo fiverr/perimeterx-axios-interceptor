@@ -2,13 +2,21 @@
 
 ## 🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request
 
-### Implementation
+### Quick implementation
 ```js
 import axios from ‘axios’;
-import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
+import { attach } from ‘perimeterx-axios-interceptor’;
+
+attach(axios);
+```
+
+### Implementat all the things!
+```js
+import axios from ‘axios’;
+import { attach, detach } from ‘perimeterx-axios-interceptor’;
 
 attach(axios, {
-    filter: ({ appId, path }) => !isbot(navigator.userAgent) && /\/logger/.test(path),
+    filter: ({ path }) => !/\/logger/.test(path),
     onintercept: request => logger.info(`Intercepted a block response from request ${request.url}`),
     onsuccess: request => logger.info(`Exonerated a request to ${request.url}`),
     onfailure: (request, error) => logger.ino(`Failed to exonerate request to ${request.url}: ${error.message}`),
@@ -26,6 +34,9 @@ attach(axios, {
         timeout: 3000
     }
 });
+
+// Remove the interceptor for some reason. Perhaps in order to re attach with different settings
+detach(axios);
 ```
 
 ### Behaviour details
