@@ -8,12 +8,12 @@ import axios from ‘axios’;
 import { attach[, detach] } from ‘perimeterx-axios-interceptor’;
 
 attach(axios, {
-    filter: () => !isbot(navigator.userAgent),
+    filter: ({ appId, path }) => !isbot(navigator.userAgent) && /\/logger/.test(path),
+    onintercept: request => logger.info(`Intercepted a block response from request ${request.url}`),
+    onsuccess: request => logger.info(`Exonerated a request to ${request.url}`),
+    onfailure: (request, error) => logger.ino(`Failed to exonerate request to ${request.url}: ${error.message}`),
     onerror: error => logger.error(error),
-    onintercept: () => stats.count('axios.interceptor.perimeterx.intercept', 1),
-    onfailure: () => stats.count('axios.interceptor.perimeterx.failure', 1),
-    onsuccess: () => stats.count('axios.interceptor.perimeterx.success', 1),
-    simulate: true,
+    simulate: true, // Will **not** load the challenge
     modalConfig: {
         className: 'my-challenge-popup',
         title: 'Are you human?',
@@ -22,7 +22,8 @@ attach(axios, {
             '1. Disable adblocker',
             '2. Enable Javascript'
         ],
-        suffix: 'Still having issues? Contact support at support@example.com'
+        suffix: 'Still having issues? Contact support at support@example.com',
+        timeout: 3000
     }
 });
 ```
