@@ -11,7 +11,7 @@ createServer((request, response) => {
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
             'Access-Control-Expose-Headers': 'Content-Length',
-            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range',
+            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
         });
         response.end();
         return;
@@ -29,7 +29,7 @@ createServer((request, response) => {
             'Access-Control-Allow-Credentials': 'true',
             'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
             'Access-Control-Expose-Headers': 'Content-Length',
-            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range',
+            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
         });
         response.write(`Request must include your app id: 'http://localhost:${port}/PXxxxxxxxx'`);
         response.end();
@@ -44,7 +44,7 @@ createServer((request, response) => {
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
         'Access-Control-Expose-Headers': 'Content-Length',
-        'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range',
+        'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
     });
     const body = JSON.stringify({
         appId,
