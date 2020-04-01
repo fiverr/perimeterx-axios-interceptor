@@ -41,6 +41,7 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     <style>
       
 .perimeterx-async-challenge {
+    z-index: 9999;
     position: absolute;
     left: 0;
     top: 0;
