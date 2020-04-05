@@ -49,8 +49,10 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 
 ![](https://user-images.githubusercontent.com/516342/78470552-1fdf8080-7733-11ea-882a-3a261492c85c.png)
 
+### HTML output
+
 <details>
-    <summary><h3>View full HTML output</h3></summary>
+    <summary><strong>View full HTML output</strong></summary>
 
 ```html
 <dialog class="perimeterx-async-challenge" open>
