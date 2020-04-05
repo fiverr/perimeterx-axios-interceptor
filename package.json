@@ -1,12 +1,17 @@
 {
   "name": "perimeterx-axios-interceptor",
-  "version": "0.0.0-work-in-progress",
+  "version": "0.0.0-alpha.2",
   "description": "🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request",
   "keywords": [
     "perimeterx",
+    "bot-defender",
+    "advanced blocking response",
     "axios",
+    "interceptor",
     "retry",
-    "bot-detection"
+    "exonerate",
+    "bot",
+    "🤖"
   ],
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -17,16 +22,17 @@
   "scripts": {
     "start": "parcel playground/src/index.html --out-dir playground/dist",
     "test": "jest",
-    "lint": "eslint '**/*.js'"
+    "lint": "eslint '**/*.js'",
+    "tester": "node ./tools/tester/index.js"
   },
   "main": "index.js",
   "devDependencies": {
-    "@fiverr/eslint-config-fiverr": "^3.1.3",
+    "@fiverr/eslint-config-fiverr": "^3.2.0",
     "@lets/wait": "^1.0.0",
     "axios": "^0.19.2",
     "eslint": "^6.8.0",
     "eslint-plugin-log": "^1.2.3",
-    "jest": "^25.1.0",
+    "jest": "^25.2.7",
     "moxios": "^0.4.0",
     "parcel-bundler": "^1.12.4"
   }
