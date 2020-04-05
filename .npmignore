@@ -1,7 +1,7 @@
 .*
 *.log
 spec.js
-playground
-tools
-specHelpers
+/playground
+/tools
+/specHelpers
 __snapshots__

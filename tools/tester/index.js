@@ -1,18 +1,20 @@
 const { createServer } = require('http');
 const { parse } = require('url');
 
+const defaultHeaders = {
+    'Cache-Control': 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'Access-Control-Expose-Headers': 'Content-Length',
+    'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
+};
 const [, , port = 1235] = process.argv;
 
 createServer((request, response) => {
     if (request.method.toUpperCase() === 'OPTIONS') {
         console.info('> CORS preflight');
-        response.writeHead(204, {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            'Access-Control-Expose-Headers': 'Content-Length',
-            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
-        });
+        response.writeHead(204, defaultHeaders);
         response.end();
         return;
     }
@@ -22,30 +24,26 @@ createServer((request, response) => {
 
     if (!/^PX/.test(appId)) {
         console.info('> Could not find app id');
-        response.writeHead(400, {
-            'Content-Type': 'text/plain',
-            'Cache-Control': 'no-cache',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-            'Access-Control-Expose-Headers': 'Content-Length',
-            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
-        });
+        response.writeHead(
+            400,
+            Object.assign(
+                { 'Content-Type': 'text/plain' },
+                defaultHeaders
+            )
+        );
         response.write(`Request must include your app id: 'http://localhost:${port}/PXxxxxxxxx'`);
         response.end();
         return;
     }
 
     console.info('> Blocked request');
-    response.writeHead(403, {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        'Access-Control-Expose-Headers': 'Content-Length',
-        'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With, Range'
-    });
+    response.writeHead(
+        403,
+        Object.assign(
+            { 'Content-Type': 'application/json' },
+            defaultHeaders
+        )
+    );
     const body = JSON.stringify({
         appId,
         jsClientSrc: `https://client.perimeterx.net/${appId}/main.min.js`,

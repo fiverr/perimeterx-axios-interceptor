@@ -50,21 +50,74 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 | ![](https://user-images.githubusercontent.com/516342/76226762-fd873f80-6226-11ea-83df-2dfbb51b1757.png)
 | -
 
+<details>
+    <summary>View full HTML output</summary>
+
 ```html
 <dialog class="perimeterx-async-challenge" open>
-  <div>
-    <p class="title">One Small Step</p>
-    <p class="subtitle">Please check the box below to continue your normal visit</p>
-    <div id="px-captcha" class="challenge-box">
-    <p class="quickfix">• Please exclude this website from ad blocking or ad filtering software.</p>
-    <p class="quickfix">• Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
-    <p class="quickfix">• Make sure JavaScript is enabled in your browser.</p>
-    <p>If you're still having trouble accessing the site, please contact customer support.</p>
-    <style> {...} </style>
-  </div>
+   <div>
+      <p class="title">One Small Step</p>
+      <p class="subtitle">Please check the box below to continue your normal visit</p>
+      <div id="px-captcha" class="challenge-box">
+         <!-- Challange markup injected by PerimeterX Javascript -->
+      </div>
+      <p class="quickfix">• Please exclude this website from ad blocking or ad filtering software.</p>
+      <p class="quickfix">• Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
+      <p class="quickfix">• Make sure JavaScript is enabled in your browser.</p>
+      <p>If you're still having trouble accessing the site, please contact customer support.</p>
+      <style>
+.perimeterx-async-challenge {
+	z-index: 9999;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background: rgba(0, 0, 0, .3);
+}
+.perimeterx-async-challenge > div {
+	margin: 20vh 20vw 0;
+	background: white;
+	color: black;
+	white-space: pre-wrap;
+	box-shadow: 0 0 2em rgba(0, 0, 0, .4);
+	padding: 1em;
+}
+.perimeterx-async-challenge p,
+.perimeterx-async-challenge .challenge-box {
+	margin: 0 0 .5em;
+}
+.perimeterx-async-challenge .title {
+	font-size: 1.4em;
+}
+.perimeterx-async-challenge .subtitle {
+	font-size: 1.2em;
+}
+.perimeterx-async-challenge .quickfix {
+	font-size: .8em;
+}
+@media screen and (max-width:1040px) {
+	.perimeterx-async-challenge>div {
+		margin: 10vh 10vw 0;
+	}
+}
+@media screen and (max-width:800px) {
+	.perimeterx-async-challenge>div {
+		margin: 5vw 5vw 0;
+	}
+}
+      </style>
+   </div>
 </dialog>
 <script src="https://captcha.px-cdn.net/<PERIMETERX_APP_IP>/captcha.js"></script>
 ```
+
+> If you add a custom class, `dialog` element will include **both class names**: `<dialog class="perimeterx-async-challenge my-challenge-popup" open>`
+
+</details>
 
 ### API
 #### 1st argument: `axios`

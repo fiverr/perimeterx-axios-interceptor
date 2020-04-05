@@ -1,15 +1,17 @@
 {
   "name": "perimeterx-axios-interceptor",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.2",
   "description": "🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request",
   "keywords": [
     "perimeterx",
+    "bot-defender",
+    "advanced blocking response",
     "axios",
     "interceptor",
     "retry",
-    "bot-detection",
     "exonerate",
-    "🤖/👨‍🦰"
+    "bot",
+    "🤖"
   ],
   "author": "Fiverr SRE",
   "license": "MIT",
