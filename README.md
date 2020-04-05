@@ -47,11 +47,10 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
 1. Challenge is resolved by user (user is exonerated)
 1. Replay original request and resolve original promise
 
-| ![](https://user-images.githubusercontent.com/516342/76226762-fd873f80-6226-11ea-83df-2dfbb51b1757.png)
-| -
+![](https://user-images.githubusercontent.com/516342/78470552-1fdf8080-7733-11ea-882a-3a261492c85c.png)
 
 <details>
-    <summary>View full HTML output</summary>
+    <summary><h3>View full HTML output</h3></summary>
 
 ```html
 <dialog class="perimeterx-async-challenge" open>
