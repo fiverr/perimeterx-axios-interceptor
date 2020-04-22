@@ -5,7 +5,7 @@ const rejected = require('./lib/rejected');
  * attached - a collection of axios instances which were attached the PerimeterX interceptor
  * @type {Map}
  */
-const attached = new Map();
+const attached = require('./lib/store')();
 
 /**
  * Attach PerimeterX interceptor to an axios instance

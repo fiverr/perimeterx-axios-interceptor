@@ -3,7 +3,7 @@
 exports[`lib/UIElements createModal should build the modal UI, PerimeterX and default content 1`] = `
 <dialog
   class="perimeterx-async-challenge"
-  open=""
+  open="open"
 >
   <div>
     <p
@@ -75,7 +75,7 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     margin: 0;
 }
 .perimeterx-async-challenge .quickfix:before {
-    content: "•";
+    content: "\\2022";
     margin: 0 .5em
 }
 @media screen and (max-width:1040px) {

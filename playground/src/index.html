@@ -4,38 +4,54 @@
         <link rel="stylesheet" href="./styles/index.css">
     </head>
     <body>
-        <h1>PerimeterX Axios Interceptor</h1>
-        <form>
-            <label>
-                Simulate mode (only prints to console): <input type="checkbox" id="toggle_simulate_mode"></inpur>
-            </label>
-            <label>
-                Use custom settings: <input type="checkbox" id="toggle_custom_settings"></inpur>
-            </label>
-            <label>
-                PerimeterX App ID:
-                <input type="password" placeholder="PX????????" autocomplete="on organization perimeterx-app-id" id="app_id_input">
-            </label>
-            <label>
-                Select an endpoint:
-                <select name="endpoint" id="requests_select">
-                    <option value="">Reset</option>
-                    <!-- content filled with Javascript -->
-                </select>
-            </label>
-        </form>
-        <textarea></textarea>
+        <header>
+            <h1>PerimeterX Axios Interceptor</h1>
+            <h2>
+                Intercept. Display. Retry.
+            </h2>
+        </header>
         <section>
-            <h2>Instructions</h2>
-            <ul>
-            <li>
-                After trigerring "PerimeterX block and exonerate" use the first option (Reset)
-            </li>
-            <li>
-                Add your app ID to query string for easy refresh: <kbd>http://localhost:1234/?appId=PXXXXXXXXX</kbd>
-            </li>
-            </ul>
+            <h3>Synopsis</h3>
+            <p>
+                Using <a href="https://github.com/PerimeterX/perimeterx-nginx-plugin#-advanced-blocking-response" rel="noreferrer noreferrer">Advanced Blocking Response</a>, blocked JSON requests receive a JSON response with status 403. This response includes a payload which allow us to display PerimeterX's challenge. After visitor is exonerated, the original request will be sent and resolved using the original promise.
+            </p>
+            <h3>How to use this simulation</h3>
+            <p>
+                Fill in your PerimeterX app ID. Choose a request behaviour from the dropdown, the response will be simulated locally. If you've lost track of blockage and exoneration, select "Reset" option.
+            </p>
+            <p>
+                Events are logged to browser console in "verbose" log level.
+            </p>
+            <p>
+                <strong>Tip</strong>: Add your app ID to query string for easy refresh: <kbd>http://localhost:1234/?appId=PXXXXXXXXX</kbd>
+            </p>
         </section>
+        <section>
+            <form>
+                <label>
+                    Simulate mode (only prints to console): <input type="checkbox" id="toggle_simulate_mode"></inpur>
+                </label>
+                <label>
+                    Use custom settings: <input type="checkbox" id="toggle_custom_settings"></inpur>
+                </label>
+                <label>
+                    PerimeterX App ID:
+                    <input type="password" placeholder="PX????????" autocomplete="on" id="app_id_input" pattern="PX[\w]{8}" required>&nbsp;&nbsp;&nbsp;<small>✱ The characters "PX" followed by 8 alphanumeric characters</small>
+                </label>
+                <label>
+                    Select an endpoint:
+                    <select name="endpoint" id="requests_select">
+                        <option value="">Reset</option>
+                        <!-- content filled with Javascript -->
+                    </select>
+                </label>
+            </form>
+            <textarea></textarea>
+            <br><br>
+        </section>
+        <footer>
+            <a href="https://unsplash.com/@rresenden" rel="noreferrer noopener">header picture by rresenden</a> | <a href="https://github.com/fiverr/perimeterx-axios-interceptor#readme" rel="noreferrer noopener">Source code</a>
+        </footer>
         <script src="./scripts/index.js"></script>
     </body>
 </html>

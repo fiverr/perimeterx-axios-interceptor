@@ -2,18 +2,20 @@
 
 ## 🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request
 
+Using [Advanced Blocking Response](https://github.com/PerimeterX/perimeterx-nginx-plugin#-advanced-blocking-response) blocked JSON requests receive a JSON response with status 403. This response includes a payload which allow us to display PerimeterX's challenge. After visitor is exonerated, the original request will be sent and resolved using the original promise.
+
 ### Quick implementation
 ```js
-import axios from ‘axios’;
-import { attach } from ‘perimeterx-axios-interceptor’;
+import axios from 'axios';
+import { attach } from 'perimeterx-axios-interceptor';
 
 attach(axios);
 ```
 
 ### Implementat all the things!
 ```js
-import axios from ‘axios’;
-import { attach, detach } from ‘perimeterx-axios-interceptor’;
+import axios from 'axios';
+import { attach, detach } from 'perimeterx-axios-interceptor';
 
 attach(axios, {
     filter: ({ path }) => !/\/logger/.test(path),
@@ -55,68 +57,68 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
     <summary><strong>View full HTML output</strong></summary>
 
 ```html
-<dialog class="perimeterx-async-challenge" open="">
-	<div>
-		<p class="title">One Small Step</p>
-		<p class="subtitle">Please check the box below to continue your normal visit</p>
-		<div id="px-captcha" class="challenge-box">
-			<!-- Challange markup (div.g-recaptcha) injected by PerimeterX Javascript -->
-		</div>
-		<p class="quickfix">Please exclude this website from ad blocking or ad filtering software.</p>
-		<p class="quickfix">Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
-		<p class="quickfix">Make sure JavaScript is enabled in your browser.</p>
-		<p>If you're still having trouble accessing the site, please contact customer support.</p>
-		<style>
+<dialog class="perimeterx-async-challenge" open="open">
+    <div>
+        <p class="title">One Small Step</p>
+        <p class="subtitle">Please check the box below to continue your normal visit</p>
+        <div id="px-captcha" class="challenge-box">
+            <!-- Challange markup (div.g-recaptcha) injected by PerimeterX Javascript -->
+        </div>
+        <p class="quickfix">Please exclude this website from ad blocking or ad filtering software.</p>
+        <p class="quickfix">Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
+        <p class="quickfix">Make sure JavaScript is enabled in your browser.</p>
+        <p>If you're still having trouble accessing the site, please contact customer support.</p>
+        <style>
 .perimeterx-async-challenge {
-	z-index: 9999;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
-	margin: 0;
-	padding: 0;
-	background: rgba(0, 0, 0, .3);
-	color: black;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, .3);
+    color: black;
 }
 .perimeterx-async-challenge > div {
-	margin: 20vh 20vw 0;
-	background: white;
-	box-shadow: 0 0 2em rgba(0, 0, 0, .4);
-	padding: 1em 1.5em;
+    margin: 20vh 20vw 0;
+    background: white;
+    box-shadow: 0 0 2em rgba(0, 0, 0, .4);
+    padding: 1em 1.5em;
 }
 .perimeterx-async-challenge p,
 .perimeterx-async-challenge .challenge-box {
-	margin: 0 0 .5em;
+    margin: 0 0 .5em;
 }
 .perimeterx-async-challenge .title {
-	font-size: 2em;
-	font-weight: bold;
+    font-size: 2em;
+    font-weight: bold;
 }
 .perimeterx-async-challenge .subtitle {
-	font-size: 1.4em;
+    font-size: 1.4em;
 }
 .perimeterx-async-challenge .quickfix {
-	font-size: .8em;
-	margin: 0;
+    font-size: .8em;
+    margin: 0;
 }
 .perimeterx-async-challenge .quickfix:before {
-	content: "•";
-	margin: 0 .5em
+    content: "•";
+    margin: 0 .5em
 }
 @media screen and (max-width:1040px) {
-	.perimeterx-async-challenge > div {
-		margin: 10vh 10vw 0;
-	}
+    .perimeterx-async-challenge > div {
+        margin: 10vh 10vw 0;
+    }
 }
 @media screen and (max-width:800px) {
-	.perimeterx-async-challenge > div {
-		margin: 5vw 5vw 0;
-	}
+    .perimeterx-async-challenge > div {
+        margin: 5vw 5vw 0;
+    }
 }
-</style>
-	</div>
+        </style>
+    </div>
 </dialog>
 <script src="https://captcha.px-cdn.net/<PERIMETERX_APP_IP>/captcha.js"></script>
 ```
@@ -136,32 +138,32 @@ It's signature includes the following named arguments:
 
 | Name | Type | Meaning | Usage
 | - | - | - | -
-| `path` | string | Request original path | `{ filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path) }`
-| `appId` | string | PerimeterX Application ID | `{ filter: ({ appId }) => appId === window._pxAppId }`
+| `path` | string | Request original path | `filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path)`
+| `appId` | string | PerimeterX Application ID | `filter: ({ appId }) => appId === window._pxAppId`
 
 ##### `onerror` {function}
 This function is called when an internal error happened with this interceptor
 The signature includes the error:
 ```js
-{ onerror: (error) => logger.error(error) }
+onerror: (error) => logger.error(error)
 ```
 ##### `onintercept` {function}
 This function is called on every time a request is recognised as a PerimeterX block.
 The signature includes the original request object (axios.config):
 ```js
-{ onintercept: (request) => logger.info({ message: 'Axios intercepted a PerimeterX block response', url: request.url }) }
+onintercept: (request) => logger.info({ message: 'Axios intercepted a PerimeterX block response', url: request.url })
 ```
 ##### `onsuccess` {function}
 This function is called when a challenge was successfully completed.
 The signature includes the original request object (axios.config):
 ```js
-{ onsuccess: (request) => logger.info({ message: 'Axios interceptor exonerated request', url: request.url }) }
+onsuccess: (request) => logger.info({ message: 'Axios interceptor exonerated request', url: request.url })
 ```
 ##### `onfailure` {function}
 This function is called when a challenge was successfully completed.
 The signature includes the original request object (axios.config) and the rejection error:
 ```js
-{ onfailure: (request, error) => logger.info({ message: 'Axios interceptor failed to exonerate request', url: request.url, stack: error.stack }) }
+onfailure: (request, error) => logger.info({ message: 'Axios interceptor failed to exonerate request', url: request.url, stack: error.stack })
 ```
 ##### `simulate` {boolean}
 Set "simulate" to a truthy value to allow monitoring without prompting users with exoneration.
