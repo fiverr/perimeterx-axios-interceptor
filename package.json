@@ -1,6 +1,6 @@
 {
   "name": "perimeterx-axios-interceptor",
-  "version": "0.0.0-alpha.5",
+  "version": "0.0.0-alpha.6",
   "description": "🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request",
   "keywords": [
     "perimeterx",
@@ -15,6 +15,7 @@
   ],
   "author": "Fiverr SRE",
   "license": "MIT",
+  "homepage": "https://fiverr.github.io/perimeterx-axios-interceptor/",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/fiverr/perimeterx-axios-interceptor.git"

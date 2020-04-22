@@ -6,6 +6,7 @@ import mockRequests from './mockRequests';
 import formHandler from './formHandler';
 import populateForm from './populateForm';
 import { config, useCustomModal, simulate } from './config';
+import debug from './debug';
 
 Object.assign(
     window,
@@ -16,27 +17,44 @@ Object.assign(
 const { get } = axios;
 axios.get = (...args) => wait(200).then(() => get(...args));
 
-window.toggle_custom_settings.addEventListener('change', () => toggleSettings(window.toggle_custom_settings.checked));
-function toggleSettings(boolean) {
-    console.debug('Detach axios instance');
-    detach(axios);
-    useCustomModal(boolean);
-    console.debug('Reattach axios instance');
-    attach(axios, config);
+{
+    const toggle = () => {
+        debug('Detach axios instance');
+        detach(axios);
+        useCustomModal(window.toggle_custom_settings.checked);
+        debug('Reattach axios instance');
+        attach(axios, config);
+    };
+    window.toggle_custom_settings.addEventListener('change', toggle);
 }
 
-window.toggle_simulate_mode.addEventListener('change', () => toggleSimulate(window.toggle_simulate_mode.checked));
-function toggleSimulate(boolean) {
-    console.debug('Detach axios instance');
-    detach(axios);
-    simulate(boolean);
-    console.debug('Reattach axios instance');
-    attach(axios, config);
+{
+    const toggle = () => {
+        debug('Detach axios instance');
+        detach(axios);
+        simulate(window.toggle_simulate_mode.checked);
+        debug('Reattach axios instance');
+        attach(axios, config);
+    };
+    window.toggle_simulate_mode.addEventListener('change', toggle);
 }
+
+{
+    const toggle = () => document.body.classList.toggle('logs', !window.toggle_log.checked);
+    window.toggle_log.addEventListener('change', toggle);
+    toggle();
+}
+
+{
+    const toggle = () => document.body.classList.toggle('instructions', !window.toggle_instructions.checked);
+    window.toggle_instructions.addEventListener('change', toggle);
+    toggle();
+}
+
 
 attach(axios, config);
 
-console.debug('Disable submit for all forms');
+debug('Disable submit for all forms');
 [].forEach.call(
     document.forms,
     (form) => form.addEventListener(
@@ -46,17 +64,19 @@ console.debug('Disable submit for all forms');
     )
 );
 
-console.debug('Search appId in query string');
+debug('Search appId in query string');
 const [, appId] = window.location.search.match(/(?:\?|&)appId=(.*)(&|$)/) || [];
-console.debug('Mock API endpoints');
+debug('Mock API endpoints');
 mockRequests(axios, appId);
-console.debug('Attach App ID input handler');
+debug('Attach App ID input handler');
 window.app_id_input.value = appId || '';
-console.debug('Populate form options');
+debug('Populate form options');
 populateForm();
-console.debug('Attach form handlers');
+debug('Attach form handlers');
 formHandler({
     input: window.app_id_input,
     select: window.requests_select,
     axios
 });
+
+document.querySelector('kbd').innerHTML = [ location.origin, location.pathname, '?appId=PXXXXXXXXX' ].join('');

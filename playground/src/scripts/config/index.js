@@ -1,17 +1,11 @@
-const debug = (message, ...args) => console.debug(`%c${message}`, [
-    'display: inline-block',
-    'padding: 2px 4px',
-    'border-radius: 3px',
-    'background: fuchsia',
-    'color: white',
-    'text-shadow: 0 1px 0 black, 0 -1px 0 black, 1px 0 0 black, -1px 0 0 black'
-].join(';'), ...args);
+import debug from '../debug';
+import mockRequests from '../mockRequests';
 
 export const config = {
-    onerror: (error) => console.error(error),
-    onintercept: (request) => debug('Intercepted', request.url),
-    onsuccess: (request) => debug('Success', request.url),
-    onfailure: (request, error) => debug('Failure', request.url, error.message),
+    onerror: (error) => mockRequests.replay() || debug('[onerror]', error.message, error.stack),
+    onintercept: (request) => debug('[onintercept]', request.url),
+    onsuccess: (request) => debug('[onsuccess]', request.url),
+    onfailure: (request, error) => mockRequests.replay() || debug('[onfailure]', request.url, error.message),
     modalConfig: {}
 };
 

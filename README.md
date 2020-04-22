@@ -1,8 +1,11 @@
-# perimeterx-axios-interceptor
+# perimeterx-axios-interceptor [![](https://img.shields.io/circleci/build/github/fiverr/perimeterx-axios-interceptor?style=flat-square)](https://circleci.com/gh/fiverr/perimeterx-axios-interceptor) [![](https://img.shields.io/npm/v/perimeterx-axios-interceptor.svg?style=flat-square)](https://www.npmjs.com/package/perimeterx-axios-interceptor) [![](https://img.shields.io/badge/-playground-informational?style=flat-square)](https://fiverr.github.io/perimeterx-axios-interceptor/?appId=)
 
 ## 🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request
 
 Using [Advanced Blocking Response](https://github.com/PerimeterX/perimeterx-nginx-plugin#-advanced-blocking-response) blocked JSON requests receive a JSON response with status 403. This response includes a payload which allow us to display PerimeterX's challenge. After visitor is exonerated, the original request will be sent and resolved using the original promise.
+
+### Playground
+[Visit the playground](https://fiverr.github.io/perimeterx-axios-interceptor/?appId=) to experience the behaviour
 
 ### Quick implementation
 ```js

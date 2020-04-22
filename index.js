@@ -5,7 +5,7 @@ const rejected = require('./lib/rejected');
  * attached - a collection of axios instances which were attached the PerimeterX interceptor
  * @type {Map}
  */
-const attached = require('./lib/store')();
+let attached;
 
 /**
  * Attach PerimeterX interceptor to an axios instance
@@ -53,6 +53,14 @@ module.exports.attach = function attach(axios, {
     simulate = false,
     modalConfig = {}
 } = {}) {
+    if (typeof Map !== 'function') {
+        const error = new Error('Map is not supported by this browser. Abort interceptor');
+        error.code = 'UNSUPPORTED_BROWSER';
+        onerror(error);
+        return;
+    }
+
+    attached = attached || new Map();
     const context = { axios, filter, onintercept, onsuccess, onfailure, onerror, simulate, modalConfig };
 
     if (!attached.has(axios)) {

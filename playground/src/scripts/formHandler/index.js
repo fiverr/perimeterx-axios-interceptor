@@ -1,5 +1,6 @@
 import debounce from '../debounce';
 import mockRequests from '../mockRequests';
+import debug from '../debug';
 
 /**
  * @param {HTMLSelectElement} select
@@ -8,7 +9,7 @@ import mockRequests from '../mockRequests';
 export default function formHandler({ input, select, axios }) {
     const textarea = document.querySelector('textarea');
     function callback(result) {
-        console.debug(result);
+        debug(result);
         document.body.classList.remove('loading');
         textarea.value = [result, textarea.value].filter(Boolean).join('\n');
     }

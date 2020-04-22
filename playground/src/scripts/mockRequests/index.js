@@ -1,4 +1,5 @@
 import moxios from 'moxios';
+import debug from '../debug';
 import PXResponse from '../../../../specHelpers/PXResponse';
 
 const SIMPLE_SUCCESSFUL_REQUEST = '/success';
@@ -30,8 +31,9 @@ export const endpoints = Object.entries({
  * @param {import('axios').AxiosInstance} axios
  * @returns {void}
  */
-export default function mockRequests(axios, appId = PXResponse.defaultAppId) {
-    console.debug(`Stubbing requests with app ID ${appId}`);
+export default function mockRequests(axios, appId = '') {
+    mockRequests.replay = () => mockRequests(axios, appId);
+    debug(`Stubbing requests with app ID [${appId || 'MISSING APP ID'}]`);
 
     moxios.uninstall(axios);
     moxios.install(axios);
@@ -51,5 +53,4 @@ export default function mockRequests(axios, appId = PXResponse.defaultAppId) {
     moxios.stubRequest(PERIMETERX_BLOCK_AND_EXONERATE, new PXResponse({ appId }));
 
     moxios.stubRequest(PERIMETERX_BLOCK_THRICE, new PXResponse({ appId, failureCount: 3 }));
-
 }
