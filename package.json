@@ -1,6 +1,6 @@
 {
   "name": "perimeterx-axios-interceptor",
-  "version": "0.0.0-alpha.4",
+  "version": "0.0.0-alpha.5",
   "description": "🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request",
   "keywords": [
     "perimeterx",
@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "parcel playground/src/index.html --out-dir playground/dist",
+    "build": "parcel build playground/src/index.html --out-dir playground/dist",
     "test": "jest",
     "lint": "eslint '**/*.js'",
     "tester": "node ./tools/tester/index.js"

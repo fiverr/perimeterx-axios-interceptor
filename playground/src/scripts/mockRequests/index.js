@@ -32,6 +32,7 @@ export const endpoints = Object.entries({
  */
 export default function mockRequests(axios, appId = PXResponse.defaultAppId) {
     console.debug(`Stubbing requests with app ID ${appId}`);
+
     moxios.uninstall(axios);
     moxios.install(axios);
 
