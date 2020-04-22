@@ -14,8 +14,8 @@ html {
 body {
     min-height: 100%;
     position: relative;
-    background: var(--background-colour) url(./assorted-color-umbrella.webp) fixed top center no-repeat;
-    background-size: cover;
+    background: var(--background-colour) url(./assorted-color-umbrella.jpg) fixed top center no-repeat;
+    background-size: 100% auto;
     padding-bottom: var(--footer-height);
 }
 body, input, select, button, textarea {

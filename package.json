@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "parcel playground/src/index.html --out-dir playground/dist",
-    "build": "parcel build playground/src/index.html --out-dir playground/dist",
+    "build": "parcel build playground/src/index.html --out-dir playground/dist --public-url .",
     "test": "jest",
     "lint": "eslint '**/*.js'",
     "tester": "node ./tools/tester/index.js"
