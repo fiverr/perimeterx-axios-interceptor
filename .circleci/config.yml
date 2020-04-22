@@ -12,15 +12,45 @@ jobs:
       - run:
           name: Install dependencies
           command: npm i
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
       - run:
           name: Test
           command: npm t
       - run:
           name: Check code syntax
           command: npm run lint -- --plugin log
+  page:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build static playground
+          command: npm run build
+      - run:
+          name: Copy circleci config
+          command: cp -r .circleci playground/dist/
+      - run:
+          name: Post to gh-pages
+          command: curl ci-cd.net/v1/gh/pages | bash -s playground/dist/.
 
 workflows:
   version: 2.1
   ci-cd:
     jobs:
-      - test
+      - test:
+        filters:
+          branches:
+            ignore:
+              - gh-pages
+      - page:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
