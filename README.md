@@ -69,7 +69,6 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
         </div>
         <p class="quickfix">Please exclude this website from ad blocking or ad filtering software.</p>
         <p class="quickfix">Make sure you don't have any browser extensions tampering with request headers or user agent string.</p>
-        <p class="quickfix">Make sure JavaScript is enabled in your browser.</p>
         <p>If you're still having trouble accessing the site, please contact customer support.</p>
         <style>
 .perimeterx-async-challenge {
@@ -144,6 +143,17 @@ It's signature includes the following named arguments:
 | `path` | string | Request original path | `filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path)`
 | `appId` | string | PerimeterX Application ID | `filter: ({ appId }) => appId === window._pxAppId`
 
+It is considered a good practice **not** to disrupt the user experience for background communication suck as liveness beacons, logs and metrics. The axios error will be thrown to the listener and will be added a new field, `unintercepted`, so that consumers can elect to ignore these skipped blocks.
+
+```js
+axios('/beacon')
+    .catch(
+        error => error.unintercepted
+            ? logger.debug('Unintercepted blocked request')
+            : logger.error(error)
+    );
+```
+
 ##### `onerror` {function}
 This function is called when an internal error happened with this interceptor
 The signature includes the error:
@@ -184,10 +194,22 @@ This object allows configuration of the modal GUI:
     - **Default**:
         - "• Please exclude this website from ad blocking or ad filtering software."
         - "• Make sure you don't have any browser extensions tampering with request headers or user agent string.",
-        - "• Make sure JavaScript is enabled in your browser."
 - suffix (`{string}`): Replace or disable default suffix
     - **Default**: "If you're still having trouble accessing the site, please contact customer support."
 - timeout (`{number}`): Time, in milliseconds, to allow PerimeterX script to load before aborting
     - **Default**: 3000 (3 seconds)
 
 > Setting "title", "subtitle", "quickfixes", or "suffix" to a falsy value (null, empty string...) will prevent them from being rendered to GUI.
+
+```js
+modalConfig: {
+    className: 'my-challenge-modal',
+    title: 'Just a little check',
+    quickfixes: [
+        '=> Turn off ad blockers',
+        '=> Contact support if you need further assistance'
+    ],
+    suffix: null,
+    timeout: 5000
+}
+```

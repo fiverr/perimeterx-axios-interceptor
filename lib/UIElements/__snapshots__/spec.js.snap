@@ -30,11 +30,6 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     >
       Make sure you don't have any browser extensions tampering with request headers or user agent string.
     </p>
-    <p
-      class="quickfix"
-    >
-      Make sure JavaScript is enabled in your browser.
-    </p>
     <p>
       If you're still having trouble accessing the site, please contact customer support.
     </p>

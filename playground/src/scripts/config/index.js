@@ -6,6 +6,7 @@ export const config = {
     onintercept: (request) => debug('[onintercept]', request.url),
     onsuccess: (request) => debug('[onsuccess]', request.url),
     onfailure: (request, error) => mockRequests.replay() || debug('[onfailure]', request.url, error.message),
+    filter: ({ path }) => path !== '/pxignore',
     modalConfig: {}
 };
 
