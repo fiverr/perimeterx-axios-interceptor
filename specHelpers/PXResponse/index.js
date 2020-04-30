@@ -14,7 +14,7 @@ module.exports = class PXResponse {
      * @param {number} [o.failureCount] Amount of times to block before success
      */
     constructor({ appId = PX_APP_ID, failureCount = 1 } = {}) {
-        this.iterations = 0;
+        this.iterations = -1;
         this.failureCount = failureCount;
         this.blockResponse = PXResponse.blockResponse(appId);
     }
@@ -45,16 +45,17 @@ module.exports = class PXResponse {
 
     /**
      * Side effect of incrementing the request count
-     * @returns {number} status code
-     */
-    get status() {
-        return this.iterations++ < this.failureCount ? 403 : 200;
-    }
-
-    /**
      * @returns {json}
      */
     get response() {
+        this.iterations++;
         return this.iterations < this.failureCount ? this.blockResponse : 'Successful request';
+    }
+
+    /**
+     * @returns {number} status code
+     */
+    get status() {
+        return this.iterations < this.failureCount ? 403 : 200;
     }
 };
