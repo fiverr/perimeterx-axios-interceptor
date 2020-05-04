@@ -75,16 +75,15 @@ describe('perimeterx-axios-interceptor', () => {
     });
 
     it('should call filter function', async() => {
-        let filtered = 0;
+        expect.assertions(3);
         attach(axios, {
-            filter: () => ++filtered
+            filter: () => expect().toBe() || true
         });
         await checkResolved(
             axios.get(REQUEST_PERIMETERX_BLOCK)
         );
         expect(resolved).toBe(true);
         expect(rejected).toBe(false);
-        expect(filtered).toBe(1);
     });
 
     it.each([true, 1, 'yes', {}])(
@@ -116,14 +115,13 @@ describe('perimeterx-axios-interceptor', () => {
     );
 
     it('should expost "path" and "appId" arguments to filter function', async() => {
-        const args = {};
+        expect.assertions(1);
         attach(axios, {
-            filter: (_args) => Object.assign(args, _args)
+            filter: (args) => expect(args).toEqual({
+                appId: PXResponse.defaultAppId,
+                path: '/perimeterx-block'
+            })
         });
         await axios.get(REQUEST_PERIMETERX_BLOCK).catch(() => null);
-        expect(args).toEqual({
-            appId: PXResponse.defaultAppId,
-            path: '/perimeterx-block'
-        });
     });
 });
