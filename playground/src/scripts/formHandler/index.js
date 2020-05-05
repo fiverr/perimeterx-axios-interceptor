@@ -36,8 +36,8 @@ export default function formHandler({ input, select, axios }) {
 
             axios.get(select.value)
                 .then(({ data }) => callback(data))
-                .catch(({ message, unintercepted }) => unintercepted
-                    ? callback('Unintercepted blocked request') || mockRequests.replay()
+                .catch(({ message, ignored }) => ignored
+                    ? callback('Ignored blocked request') || mockRequests.replay()
                     : callback(message))
             ;
         },

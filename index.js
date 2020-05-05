@@ -10,19 +10,19 @@ let attached;
 /**
  * Attach PerimeterX interceptor to an axios instance
  * @param {Axios}    axios instance
- * @param {Function} [o.filter]        Called before the process starts, when returns false it cancels the popup
- * @param {Function} [o.onintercept]   Called when interception kicks in
- * @param {Function} [o.onunintercept] Called when interception would have kicked in unless the request was filtered
- * @param {Function} [o.onsuccess]     Called when challenge was solved successfully
- * @param {Function} [o.onfailure]     Called when challenge was submitted but failed
- * @param {Function} [o.onerror]       Called with any error thrown by the flow
- * @param {boolean}  [o.simulate]      Run this plugin in simulate mode only
- * @param {string}   [o.c.className]   Add custom className to modal
- * @param {string}   [o.c.title]       Replace or disable default title
- * @param {string}   [o.c.subtitle]    Replace or disable default subtitle
- * @param {string[]} [o.c.quickfixes]  Replace or disable default quick fixes (list)
- * @param {string}   [o.c.suffix]      Replace or disable default suffix
- * @param {number}   [o.c.timeout]     Time, in milliseconds, to allow PerimeterX script to load before aborting
+ * @param {Function} [o.filter]       Called before the process starts, when returns false it cancels the popup
+ * @param {Function} [o.onintercept]  Called when interception kicks in
+ * @param {Function} [o.onignore]     Called when interception would have kicked in unless the request was filtered
+ * @param {Function} [o.onsuccess]    Called when challenge was solved successfully
+ * @param {Function} [o.onfailure]    Called when challenge was submitted but failed
+ * @param {Function} [o.onerror]      Called with any error thrown by the flow
+ * @param {boolean}  [o.simulate]     Run this plugin in simulate mode only
+ * @param {string}   [o.c.className]  Add custom className to modal
+ * @param {string}   [o.c.title]      Replace or disable default title
+ * @param {string}   [o.c.subtitle]   Replace or disable default subtitle
+ * @param {string[]} [o.c.quickfixes] Replace or disable default quick fixes (list)
+ * @param {string}   [o.c.suffix]     Replace or disable default suffix
+ * @param {number}   [o.c.timeout]    Time, in milliseconds, to allow PerimeterX script to load before aborting
  * @returns self
  *
  * @example
@@ -48,7 +48,7 @@ let attached;
 module.exports.attach = function attach(axios, {
     filter = () => true,
     onintercept = () => null,
-    onunintercept = () => null,
+    onignore = () => null,
     onsuccess = () => null,
     onfailure = () => null,
     onerror = () => null,

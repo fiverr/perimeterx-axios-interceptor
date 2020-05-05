@@ -4,7 +4,7 @@ import mockRequests from '../mockRequests';
 export const config = {
     onerror: (error) => mockRequests.replay() || debug('[onerror]', error.message, error.stack),
     onintercept: (request) => debug('[onintercept]', request.url),
-    onunintercept: (request) => debug('[onunintercept]', request.url),
+    onignore: (request) => debug('[onignore]', request.url),
     onsuccess: (request) => debug('[onsuccess]', request.url),
     onfailure: (request, error) => mockRequests.replay() || debug('[onfailure]', request.url, error.message),
     filter: ({ path }) => path !== '/pxignore',

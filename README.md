@@ -15,7 +15,7 @@ import { attach } from 'perimeterx-axios-interceptor';
 attach(axios);
 ```
 
-### Implementat all the things!
+### Implement all the things!
 ```js
 import axios from 'axios';
 import { attach, detach } from 'perimeterx-axios-interceptor';
@@ -23,7 +23,7 @@ import { attach, detach } from 'perimeterx-axios-interceptor';
 attach(axios, {
     filter: ({ path }) => !/\/logger/.test(path),
     onintercept: request => logger.info(`Intercepted a block response from request ${request.url}`),
-    onunintercept: request => logger.info(`Ignored a block response from request ${request.url}`),
+    onignore: request => logger.info(`Ignored a block response from request ${request.url}`),
     onsuccess: request => logger.info(`Exonerated a request to ${request.url}`),
     onfailure: (request, error) => logger.info(`Failed to exonerate request to ${request.url}: ${error.message}`),
     onerror: error => logger.error(error),
@@ -144,15 +144,15 @@ It's signature includes the following named arguments:
 | `path` | string | Request original path | `filter: ({ path }) => !/^\/(tracking\|beacon)(\/\|$)/.test(path)`
 | `appId` | string | PerimeterX Application ID | `filter: ({ appId }) => appId === window._pxAppId`
 
-It is considered a good practice **not** to disrupt the user experience for background communication suck as liveness beacons, logs and metrics. The axios error will be thrown to the listener and will be added a new field, `unintercepted`, so that consumers can elect to ignore these skipped blocks.
+It is considered a good practice **not** to disrupt the user experience for background communication suck as liveness beacons, logs and metrics. The axios error will be thrown to the listener and will be added a new field, `ignored`, so that consumers can elect to ignore these skipped blocks.
 
-> Requests that will fail the filter method will fire the "onunintercept" callback from your configuration.
+> Requests that will fail the filter method will fire the "onignore" callback from your configuration.
 
 ```js
 axios('/beacon')
     .catch(
-        error => error.unintercepted
-            ? logger.debug('Unintercepted blocked request')
+        error => error.ignored
+            ? logger.debug('Ignored blocked request')
             : logger.error(error)
     );
 ```
@@ -169,11 +169,11 @@ The signature includes the original request object (axios.config):
 ```js
 onintercept: (request) => logger.info({ message: 'Axios intercepted a PerimeterX block response', url: request.url })
 ```
-##### `onunintercept` {function}
+##### `onignore` {function}
 Similar to `onintercept`, only this will fire for **ignored** request that did not pass the `filter` method.
 The signature includes the original request object (axios.config):
 ```js
-onunintercept: (request) => logger.info({ message: 'Axios ignored a PerimeterX block response', url: request.url })
+onignore: (request) => logger.info({ message: 'Axios ignored a PerimeterX block response', url: request.url })
 ```
 ##### `onsuccess` {function}
 This function is called when a challenge was successfully completed.
