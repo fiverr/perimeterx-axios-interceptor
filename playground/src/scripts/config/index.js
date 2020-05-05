@@ -1,12 +1,12 @@
-import debug from '../debug';
+import { info } from '../debug';
 import mockRequests from '../mockRequests';
 
 export const config = {
-    onerror: (error) => mockRequests.replay() || debug('[onerror]', error.message, error.stack),
-    onintercept: (request) => debug('[onintercept]', request.url),
-    onignore: (request) => debug('[onignore]', request.url),
-    onsuccess: (request) => debug('[onsuccess]', request.url),
-    onfailure: (request, error) => mockRequests.replay() || debug('[onfailure]', request.url, error.message),
+    onerror: (error) => mockRequests.replay() || info('[onerror]', error.message, error.stack),
+    onintercept: (request) => info('[onintercept]', request.url),
+    onignore: (request) => info('[onignore]', request.url),
+    onsuccess: (request) => info('[onsuccess]', request.url),
+    onfailure: (request, error) => mockRequests.replay() || info('[onfailure]', request.url, error.message),
     filter: ({ path }) => path !== '/pxignore',
     modalConfig: {}
 };

@@ -63,7 +63,7 @@ module.exports.attach = function attach(axios, {
     }
 
     attached = attached || new Map();
-    const context = { axios, filter, onintercept, onunintercept, onsuccess, onfailure, onerror, simulate, modalConfig };
+    const context = { axios, filter, onintercept, onignore, onsuccess, onfailure, onerror, simulate, modalConfig };
 
     if (!attached.has(axios)) {
         attached.set(

@@ -45,11 +45,11 @@ attach(axios, {
 detach(axios);
 ```
 
-### Behaviour details
-Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/perimeterx-nginx-plugin#-advanced-blocking-response) featured in PX NginX Lua plugin
+### Flow description
+Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/perimeterx-nginx-plugin#-advanced-blocking-response) featured in PerimeterX's NginX Lua plugin
 
 1. Request is blocked by PerimeterX (403)
-1. Add recaptcha container and PerimeterX challenge
+1. Challenge modal is added to UI
 1. Challenge is resolved by user (user is exonerated)
 1. Replay original request and resolve original promise
 
@@ -73,7 +73,7 @@ Using the feature [Advanced Blocking Response](https://github.com/PerimeterX/per
         <p>If you're still having trouble accessing the site, please contact customer support.</p>
         <style>
 .perimeterx-async-challenge {
-    z-index: 9999;
+    z-index: 10000;
     position: fixed;
     left: 0;
     top: 0;

@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import debug from '../debug';
+import { debug } from '../debug';
 import PXResponse from '../../../../specHelpers/PXResponse';
 
 const SIMPLE_SUCCESSFUL_REQUEST = '/success';
@@ -8,7 +8,7 @@ const SIMPLE_FORBIDDEN = '/forbidden';
 const BLOCK_REQUEST_AND_EXONERATE = '/pxblock';
 const BLOCK_THRICE = '/pxblock3';
 const BLOCK_MULTIPLE_REQUESTS = Array(3).fill(BLOCK_THRICE);
-const BLOCK_BUT_DO_NOT_INTRUDE = '/pxignore';
+const BLOCK_BUT_IGNORE_THE_BLOCKAGE = '/pxignore';
 
 /**
  * Endpoint descriptions {text, value}
@@ -20,7 +20,7 @@ export const endpoints = Object.entries({
     SIMPLE_FORBIDDEN,
     BLOCK_REQUEST_AND_EXONERATE,
     BLOCK_MULTIPLE_REQUESTS,
-    BLOCK_BUT_DO_NOT_INTRUDE
+    BLOCK_BUT_IGNORE_THE_BLOCKAGE
 }).map(
     ([key, value]) => ({
         text: key.replace(/_/g, ' ').toLowerCase(),
@@ -35,7 +35,7 @@ export const endpoints = Object.entries({
  */
 export default function mockRequests(axios, appId = '') {
     mockRequests.replay = () => mockRequests(axios, appId);
-    debug(`Stubbing requests with app ID [${appId || 'MISSING APP ID'}]`);
+    debug(`Stub requests with app ID [${appId || 'MISSING APP ID'}]`);
 
     moxios.uninstall(axios);
     moxios.install(axios);
@@ -56,5 +56,5 @@ export default function mockRequests(axios, appId = '') {
 
     moxios.stubRequest(BLOCK_THRICE, new PXResponse({ appId, failureCount: 3 }));
 
-    moxios.stubRequest(BLOCK_BUT_DO_NOT_INTRUDE, new PXResponse({ appId }));
+    moxios.stubRequest(BLOCK_BUT_IGNORE_THE_BLOCKAGE, new PXResponse({ appId }));
 }
