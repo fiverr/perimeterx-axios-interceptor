@@ -1,6 +1,5 @@
 import debounce from '../debounce';
 import mockRequests from '../mockRequests';
-import debug from '../debug';
 
 /**
  * @param {HTMLSelectElement} select
@@ -9,7 +8,6 @@ import debug from '../debug';
 export default function formHandler({ input, select, axios }) {
     const textarea = document.querySelector('textarea');
     function callback(result) {
-        debug(result);
         document.body.classList.remove('loading');
         textarea.value = [result, textarea.value].filter(Boolean).join('\n');
     }
@@ -36,8 +34,8 @@ export default function formHandler({ input, select, axios }) {
 
             axios.get(select.value)
                 .then(({ data }) => callback(data))
-                .catch(({ message, unintercepted }) => unintercepted
-                    ? callback('Unintercepted blocked request') || mockRequests.replay()
+                .catch(({ message, ignored }) => ignored
+                    ? callback(message) || mockRequests.replay()
                     : callback(message))
             ;
         },

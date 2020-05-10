@@ -5,16 +5,35 @@ let output;
  * @param {...string}
  * @returns {void}
  */
-export default function debug(...text) {
+export function debug(...text) {
+    log('debug', ...text);
+}
+
+/**
+ * Add info log records at the top
+ * @param {...string}
+ * @returns {void}
+ */
+export function info(...text) {
+    log('info', ...text);
+}
+
+/**
+ * Add debug log records at the top
+ * @param {...string}
+ * @returns {void}
+ */
+function log(level, ...text) {
     output = output || document.getElementById('output');
     const line = document.createElement('p');
+    line.className = level;
     print(text.join(' '), line);
     if (output.children.length) {
         output.insertBefore(line, output.firstChild);
     } else {
         output.appendChild(line);
     }
-    console.debug(...text);
+    console[level](...text);
 }
 
 /**

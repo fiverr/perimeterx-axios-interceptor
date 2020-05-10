@@ -70,6 +70,12 @@ aside {
     min-width: 0vw;
     border-width: 0em;
 }
+.no-instructions .instructions,
+.no-logs .logs {
+    width: 0vw;
+    min-width: 0vw;
+    border-width: 0em;
+}
 @media (max-width: 1024px) {
     main {
         flex-direction: column;
@@ -77,21 +83,28 @@ aside {
     section, aside {
         min-width: 100vw;
     }
-    .instructions .instructions,
-    .logs .logs {
+    .no-instructions .instructions,
+    .no-logs .logs {
         display: none;
     }
 }
 @keyframes color_change {
     from { color: rgb(0, 255, 0); }
-    to   { color: rgb(150, 150, 150); }
+    to   { color: rgb(175, 175, 175); }
 }
 aside p {
-    color: rgb(150, 150, 150);
+    color: rgb(175, 175, 175);
     animation: color_change 10s;
     border-bottom: 1px solid rgb(75, 75, 75);;
     padding-bottom: .25em;
 }
+aside p.debug {
+    filter: brightness(.75);
+}
+.no-debug aside p.debug {
+    display: none;
+}
+
 aside p:nth-child(17) { color: rgb(125, 125, 125) }
 aside p:nth-child(18) { color: rgb(100, 100, 100) }
 aside p:nth-child(19) { color: rgb(75, 75, 75) }
@@ -143,4 +156,17 @@ dialog.my-challenge-popup > div {
 }
 dialog.my-challenge-popup .title {
     font-weight: bold;
+}
+a.repo {
+    z-index: 23456;
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    background: #fff;
+    border-radius: 50%;
+    padding: .25em;
+    transition: transform .3s ease-out;
+}
+a.repo:hover {
+    transform: rotate(360deg);
 }
