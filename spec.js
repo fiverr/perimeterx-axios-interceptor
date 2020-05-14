@@ -115,13 +115,14 @@ describe('perimeterx-axios-interceptor', () => {
     );
 
     it('should expost "path" and "appId" arguments to filter function', async() => {
-        expect.assertions(1);
+        const expected = {};
+
         attach(axios, {
-            filter: (args) => expect(args).toEqual({
-                appId: PXResponse.defaultAppId,
-                path: '/perimeterx-block'
-            })
+            filter: (args) => Object.assign(expected, args)
         });
         await axios.get(REQUEST_PERIMETERX_BLOCK).catch(() => null);
+
+        expect(expected.appId).toBe(PXResponse.defaultAppId);
+        expect(expected.path).toBe('/perimeterx-block');
     });
 });
