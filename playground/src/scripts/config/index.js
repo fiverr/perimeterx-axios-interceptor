@@ -2,11 +2,11 @@ import { info } from '../debug';
 import mockRequests from '../mockRequests';
 
 export const config = {
-    onerror: (error) => mockRequests.replay() || info('[onerror]', error.message, error.stack),
+    onerror: (error) => mockRequests.replay() || info('[onerror]', error.message, ':', error.stack),
     onintercept: (request) => info('[onintercept]', request.url),
     onignore: (request) => info('[onignore]', request.url),
     onsuccess: (request) => info('[onsuccess]', request.url),
-    onfailure: (request, error) => mockRequests.replay() || info('[onfailure]', request.url, error.message),
+    onfailure: (request, error) => mockRequests.replay() || info('[onfailure]', request.url, ':', error.message),
     filter: ({ path }) => path !== '/pxignore',
     modalConfig: {}
 };
