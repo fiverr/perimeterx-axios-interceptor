@@ -22,6 +22,16 @@ jobs:
       - run:
           name: Check code syntax
           command: npm run lint -- --plugin log
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Set NPM tokens
+          command: echo -e $NPMRC > ~/.npmrc
+      - run:
+          name: Install published
+          command: npx published --git-tag
   page:
     <<: *defaults
     steps:
@@ -47,9 +57,13 @@ workflows:
           branches:
             ignore:
               - gh-pages
-      - page:
+      - publish:
+          context: org-global
           requires:
             - test
+      - page:
+          requires:
+            - publish
           filters:
             branches:
               only:

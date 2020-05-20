@@ -185,7 +185,7 @@ onsuccess: (request) => logger.info({ message: 'Axios interceptor exonerated req
 This function is called when a challenge was successfully completed.
 The signature includes the original request object (axios.config) and the rejection error:
 ```js
-onfailure: (request, error) => logger.info({ message: 'Axios interceptor failed to exonerate request', url: request.url, stack: error.stack })
+onfailure: (request, error) => logger.info({ message: error.message, url: request.url, stack: error.stack })
 ```
 ##### `simulate` {boolean}
 Set "simulate" to a truthy value to allow monitoring without prompting users with exoneration.
@@ -222,3 +222,5 @@ modalConfig: {
     timeout: 5000
 }
 ```
+## About axios instances
+If you plan to [create axios instances](https://github.com/axios/axios#creating-an-instance), I suggest you consider using [axios-inherit](https://www.npmjs.com/package/axios-inherit) to add interceptor inheritance capability.
