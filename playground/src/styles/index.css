@@ -170,3 +170,11 @@ a.repo {
 a.repo:hover {
     transform: rotate(360deg);
 }
+.super-high-z-index {
+    position: absolute;
+    top: 0;
+    left: -1px;
+    width: 1px;
+    height: 1px;
+    z-index: 2000000000; /* Google reCAPTCHA challenge */
+}
