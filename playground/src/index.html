@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-        <link rel="stylesheet" href="./styles/index.css">
+        <link rel="stylesheet" href="./styles/index.scss">
         <link ref="favicon" href="./favicon.ico">
     </head>
     <body>
@@ -13,10 +13,10 @@
             <div>&nbsp;</div>
             <div>
                 <label>Instructions <input type="checkbox" id="toggle_instructions" checked="checked"></input></label>
-                &nbsp;&nbsp;
                 <label>Logs <input type="checkbox" id="toggle_log" checked="checked"></input></label>
-                &nbsp;&nbsp;
                 <label>Debug <input type="checkbox" id="toggle_debug" checked="checked"></input></label>
+                <label>Simulate mode <input type="checkbox" id="toggle_simulate_mode"></input></label>
+                <label>Custom settings <input type="checkbox" id="toggle_custom_settings"></input></label>
             </div>
         </header>
         <main>
@@ -37,24 +37,14 @@
                 </p>
             </section>
             <section>
-                <form>
-                    <label>
-                        Simulate mode (only prints to console): <input type="checkbox" id="toggle_simulate_mode"></input>
-                    </label>
-                    <label>
-                        Use custom settings: <input type="checkbox" id="toggle_custom_settings"></input>
-                    </label>
+                <form id='request_form'>
+                    <h3>Simulate Requests</h3>
                     <label>
                         PerimeterX App ID:
-                        <input type="password" placeholder="PX????????" autocomplete="on" id="app_id_input" pattern="PX[\w]{8}" required>&nbsp;&nbsp;&nbsp;<small>✱ The characters "PX" followed by 8 alphanumeric characters</small>
+                        <input type="password" placeholder="PX????????" autocomplete="on" id="app_id_input" pattern="PX[\w]{8}" title="The characters 'PX' followed by 8 alphanumeric characters" required>
                     </label>
-                    <label>
-                        Select an endpoint:
-                        <select name="endpoint" id="requests_select">
-                            <option value="">Reset</option>
-                            <!-- content filled with Javascript -->
-                        </select>
-                    </label>
+                    Select a request simulation:
+                    <button>reset</button>
                 </form>
                 <textarea></textarea>
                 <br><br>

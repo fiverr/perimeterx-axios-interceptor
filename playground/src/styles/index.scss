@@ -1,6 +1,7 @@
 :root {
     --background-colour: #fafafa;
     --perimeterx-brand-colour: #ce0e2d;
+    --text-color: #454545;
     --block-padding: 2em;
 }
 * {
@@ -17,6 +18,7 @@ body {
     max-height: 100%;
     position: relative;
     background: var(--background-colour) url(./assorted-color-umbrella.jpg) fixed top center no-repeat;
+    color: var(--text-color);
     background-size: 100% auto;
 }
 body, input, select, button, textarea {
@@ -44,6 +46,7 @@ header label {
     color: black;
     text-shadow: none;
     padding: .25em 1em;
+    margin: .25em;
     border-radius: 1em;
 }
 section, aside {
@@ -97,19 +100,18 @@ aside p {
     animation: color_change 10s;
     border-bottom: 1px solid rgb(75, 75, 75);;
     padding-bottom: .25em;
-}
-aside p.debug {
-    filter: brightness(.75);
+    &.debug {
+        filter: brightness(.75);
+    }
+    &:nth-child(17) { color: rgb(125, 125, 125) }
+    &:nth-child(18) { color: rgb(100, 100, 100) }
+    &:nth-child(19) { color: rgb(75, 75, 75) }
+    &:nth-child(20) { color: rgb(25, 25, 25) }
+    &:nth-child(n+20) { display: none; }
 }
 .no-debug aside p.debug {
     display: none;
 }
-
-aside p:nth-child(17) { color: rgb(125, 125, 125) }
-aside p:nth-child(18) { color: rgb(100, 100, 100) }
-aside p:nth-child(19) { color: rgb(75, 75, 75) }
-aside p:nth-child(20) { color: rgb(25, 25, 25) }
-aside p:nth-child(n+20) { display: none; }
 
 a {
     color: inherit;
@@ -126,10 +128,23 @@ input, select, button, textarea {
 }
 input {
     text-indent: .25em;
+
+    &:invalid {
+        border-color: var(--perimeterx-brand-colour);
+        background: #ffeaa7;
+    }
 }
-input:invalid {
-    border-color: var(--perimeterx-brand-colour);
-    background: #ffeaa7;
+button {
+    cursor: pointer;
+    display: block;
+    width: 80%;
+    margin: .5em auto;
+    border-radius: 5px;
+
+    &:hover {
+        border-color: var(--text-color);
+        background: var(--background-colour);
+    }
 }
 form label {
     display: block;
@@ -149,13 +164,15 @@ h3, p, label {
  */
 dialog.my-challenge-popup {
     font-size: .9em;
-}
-dialog.my-challenge-popup > div {
-    border: 1px solid black;
-    border-radius: 3px;
-}
-dialog.my-challenge-popup .title {
-    font-weight: bold;
+
+    > div {
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    .title {
+        font-weight: bold;
+    }
 }
 a.repo {
     z-index: 23456;
@@ -166,9 +183,10 @@ a.repo {
     border-radius: 50%;
     padding: .25em;
     transition: transform .3s ease-out;
-}
-a.repo:hover {
-    transform: rotate(360deg);
+
+    &:hover {
+        transform: rotate(360deg);
+    }
 }
 .super-high-z-index {
     position: absolute;

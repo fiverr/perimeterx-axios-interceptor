@@ -29,7 +29,7 @@ axios.get = (...args) => wait(200).then(() => get(...args));
 
 {
     const toggle = () => {
-        debug(`Reattach axios instance: Simulate mode ${window.toggle_simulate_mode.checked ? 'on' : 'off'}`);
+        debug(`Reattach axios instance: Simulate mode ${window.toggle_simulate_mode.checked ? 'on' : 'off'} (Only print to console).`);
         detach(axios);
         simulate(window.toggle_simulate_mode.checked);
         attach(axios, config);
@@ -79,7 +79,7 @@ populateForm();
 debug('Attach form handlers');
 formHandler({
     input: window.app_id_input,
-    select: window.requests_select,
+    form: window.request_form,
     axios
 });
 

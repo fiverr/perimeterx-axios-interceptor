@@ -9,7 +9,8 @@ export default function populateForm() {
     endpoints.forEach(
         ({ text, value }) => fragment.appendChild(createOption(text, value))
     );
-    document.querySelector('select').appendChild(fragment);
+    const existing = document.querySelector('#request_form button');
+    existing.parentNode.insertBefore(fragment, existing);
 }
 
 /**
@@ -18,8 +19,8 @@ export default function populateForm() {
  * @returns {HTMLOptionElement}
  */
 function createOption(text, value) {
-    const option = document.createElement('option');
-    option.value = value;
-    option.appendChild(document.createTextNode(text));
-    return option;
+    const button = document.createElement('button');
+    button.name = value;
+    button.appendChild(document.createTextNode(text));
+    return button;
 }

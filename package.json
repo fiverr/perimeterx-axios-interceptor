@@ -36,6 +36,7 @@
     "eslint-plugin-log": "^1.2.3",
     "jest": "^25.2.7",
     "moxios": "^0.4.0",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.8"
   }
 }
