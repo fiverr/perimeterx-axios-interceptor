@@ -55,7 +55,6 @@ axios.get = (...args) => wait(200).then(() => get(...args));
     toggle();
 }
 
-
 attach(axios, config);
 
 debug('Disable submit for all forms');
