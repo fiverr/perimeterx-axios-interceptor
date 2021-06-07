@@ -39,6 +39,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Remove things that bother parcel
+          command: "sed -i '/\"main\": \"index.js\",/d' ./package.json"
+      - run:
           name: Build static playground
           command: npm run build
       - run:

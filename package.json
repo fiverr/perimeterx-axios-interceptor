@@ -21,8 +21,8 @@
     "url": "git+ssh://git@github.com/fiverr/perimeterx-axios-interceptor.git"
   },
   "scripts": {
-    "start": "parcel playground/src/index.html --out-dir playground/dist",
-    "build": "parcel build playground/src/index.html --out-dir playground/dist --public-url .",
+    "start": "parcel playground/src/index.pug --dist-dir playground/dist",
+    "build": "parcel build playground/src/index.pug --dist-dir playground/dist --public-url .",
     "test": "jest",
     "lint": "eslint '**/*.js'",
     "tester": "node ./tools/tester/index.js"
@@ -31,12 +31,14 @@
   "devDependencies": {
     "@fiverr/eslint-config-fiverr": "^3.2.2",
     "@lets/wait": "^2.0.2",
+    "@parcel/transformer-pug": "2.0.0-beta.2",
+    "@parcel/transformer-sass": "2.0.0-beta.2",
     "axios": "^0.21.1",
     "eslint": "^7.17.0",
     "eslint-plugin-log": "^1.2.7",
     "jest": "^26.6.3",
     "moxios": "^0.4.0",
-    "parcel-bundler": "^1.12.4",
+    "parcel": "^2.0.0-beta.2",
     "sass": "^1.32.0"
   },
   "peerDependencies": {
