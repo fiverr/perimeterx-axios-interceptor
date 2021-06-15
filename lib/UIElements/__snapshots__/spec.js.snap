@@ -54,6 +54,16 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     box-shadow: 0 0 2em rgba(0, 0, 0, .4);
     padding: 1em 1.5em;
 }
+@keyframes px-challenge-appear {
+    0% { max-height: 0px; }
+    80% { max-height: 0px; }
+    100% { max-height: 800px; }
+}
+.challenge-box &gt; div &gt; iframe {
+    margin: 0 auto;
+    animation: px-challenge-appear 2s ease-in;
+
+}
 .perimeterx-async-challenge p,
 .perimeterx-async-challenge .challenge-box {
     margin: 0 0 .5em;
