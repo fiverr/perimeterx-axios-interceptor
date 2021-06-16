@@ -1,3 +1,16 @@
+# 1.0.3
+
+## Improvements
+
+### Reinstate existing _pxOnCaptchaSuccess
+Superimpose existing _pxOnCaptchaSuccess (when applicable) and reinstate the old one when finished
+
+### Allow UI timeout to be Infinity
+To disable abort function for long wait
+
+### Ease in challenge appearance (PerimeterX Human Challenge)
+Instead of jumping into appearance - add an open animation for the challenge
+
 # 1.0.2
 
 ## Bug Fixes
