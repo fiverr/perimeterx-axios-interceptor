@@ -1,3 +1,8 @@
+# 1.0.4
+
+## Improvements
+Exposing package `types` entry.
+
 # 1.0.3
 
 ## Improvements
