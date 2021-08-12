@@ -5,7 +5,7 @@ interface FilterOptions {
     appId?: string;
 }
 
-interface PerimiterXInterceptorConfig {
+export interface PerimeterXInterceptorConfig {
     filter: (options: FilterOptions) => boolean;
     onintercept: (request: Request) => void;
     onignore: (request: Request) => void;
@@ -19,7 +19,7 @@ interface PerimiterXInterceptorConfig {
 
 export declare const attach: (
     axiosInstance: AxiosInstance,
-    config: PerimiterXInterceptorConfig
+    config: PerimeterXInterceptorConfig
 ) => void;
 
 export declare const detach: (axiosInstance: AxiosInstance) => void;
