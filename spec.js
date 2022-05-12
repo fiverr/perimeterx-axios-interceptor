@@ -54,10 +54,11 @@ describe('perimeterx-axios-interceptor', () => {
         expect(axios.interceptors.response.handlers).toHaveLength(1);
 
         const [ handler ] = axios.interceptors.response.handlers;
-        const keys = Object.keys(handler);
-        expect(keys).toEqual(['fulfilled', 'rejected']);
+        const keys = Object.keys(handler); // 'fulfilled', 'rejected', 'synchronous', 'runWhen'
+        expect(keys).toContain('fulfilled');
+        expect(keys).toContain('rejected');
         const types = Object.values(handler).map((value) => typeof value);
-        expect(types).toEqual(['function', 'function']);
+        expect(types.filter(i => i === 'function')).toHaveLength(2);
 
         detach(axios);
         expect(axios.interceptors.response.handlers).toEqual([null]);
