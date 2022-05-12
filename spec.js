@@ -58,7 +58,7 @@ describe('perimeterx-axios-interceptor', () => {
         expect(keys).toContain('fulfilled');
         expect(keys).toContain('rejected');
         const types = Object.values(handler).map((value) => typeof value);
-        expect(types.filter(i => i === 'function')).toHaveLength(2);
+        expect(types.filter((i) => i === 'function')).toHaveLength(2);
 
         detach(axios);
         expect(axios.interceptors.response.handlers).toEqual([null]);
