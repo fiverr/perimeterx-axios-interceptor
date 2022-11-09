@@ -1,3 +1,8 @@
+# 1.0.5
+
+## Improvements
+Fix (onerror report) for 403 responses with no data
+
 # 1.0.4
 
 ## Improvements
