@@ -13,10 +13,10 @@ module.exports = class PXResponse {
      * @param {string} [o.appId]
      * @param {number} [o.failureCount] Amount of times to block before success
      */
-    constructor({ appId = PX_APP_ID, failureCount = 1 } = {}) {
+    constructor({ appId = PX_APP_ID, failureCount = 1, ...rest } = {}) {
         this.iterations = -1;
         this.failureCount = failureCount;
-        this.blockResponse = PXResponse.blockResponse(appId);
+        this.blockResponse = PXResponse.blockResponse(appId, rest);
     }
 
     /**
@@ -31,7 +31,7 @@ module.exports = class PXResponse {
      * @param {string} [appId]
      * @returns {object}
      */
-    static blockResponse(appId = PX_APP_ID) {
+    static blockResponse(appId = PX_APP_ID, rest = {}) {
         return {
             appId,
             jsClientSrc: `https://client.perimeterx.net/${appId}/main.min.js`,
@@ -39,7 +39,8 @@ module.exports = class PXResponse {
             vid: '2b99ec08-3a22-49f0-a289-a4a6c330b059',
             uuid: '610a4a35-c45f-4cae-bc58-5abac3a4cdcd',
             hostUrl: 'https://www.website.net',
-            blockScript: `https://captcha.px-cdn.net/${appId}/captcha.js`
+            blockScript: `https://captcha.px-cdn.net/${appId}/captcha.js`,
+            ...rest
         };
     }
 

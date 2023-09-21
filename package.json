@@ -1,6 +1,6 @@
 {
   "name": "perimeterx-axios-interceptor",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "🧱 Intercept requests which are blocked by PerimeterX - pop up the challenge and retry the request",
   "keywords": [
     "perimeterx",
