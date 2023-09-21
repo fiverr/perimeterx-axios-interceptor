@@ -9,6 +9,7 @@ const BLOCK_REQUEST_AND_EXONERATE = '/pxblock';
 const BLOCK_THRICE = '/pxblock3';
 const BLOCK_MULTIPLE_REQUESTS = Array(3).fill(BLOCK_THRICE);
 const BLOCK_BUT_IGNORE_THE_BLOCKAGE = '/pxignore';
+const IGNORE_ADVANCED_BLOCK_RESPONSE = '/pxignoreabr';
 
 /**
  * Endpoint descriptions {text, value}
@@ -20,7 +21,8 @@ export const endpoints = Object.entries({
     SIMPLE_FORBIDDEN,
     BLOCK_REQUEST_AND_EXONERATE,
     BLOCK_MULTIPLE_REQUESTS,
-    BLOCK_BUT_IGNORE_THE_BLOCKAGE
+    BLOCK_BUT_IGNORE_THE_BLOCKAGE,
+    IGNORE_ADVANCED_BLOCK_RESPONSE
 }).map(
     ([key, value]) => ({
         text: key.replace(/_/g, ' ').toLowerCase(),
@@ -53,6 +55,8 @@ export default function mockRequests(axios, appId = '') {
         response: 'Forbidden'
     });
     moxios.stubRequest(BLOCK_REQUEST_AND_EXONERATE, new PXResponse({ appId }));
+
+    moxios.stubRequest(IGNORE_ADVANCED_BLOCK_RESPONSE, new PXResponse({ appId, ignore: true }));
 
     moxios.stubRequest(BLOCK_THRICE, new PXResponse({ appId, failureCount: 3 }));
 

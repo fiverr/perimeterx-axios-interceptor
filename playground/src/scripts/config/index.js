@@ -7,7 +7,7 @@ export const config = {
     onignore: (request) => info('[onignore]', request.url),
     onsuccess: (request) => info('[onsuccess]', request.url),
     onfailure: (request, error) => mockRequests.replay() || info('[onfailure]', request.url, ':', error.message),
-    filter: ({ path }) => path !== '/pxignore',
+    filter: ({ path, ignore }) => ignore !== true && path !== '/pxignore',
     modalConfig: {}
 };
 
@@ -27,7 +27,8 @@ export function useCustomModal(boolean) {
                 '1. Disable adblocker',
                 '2. Enable Javascript'
             ],
-            suffix: 'Still having issues? Contact support at support@example.com'
+            suffix: 'Still having issues? Contact support at support@example.com',
+            allowClose: false
         }
         : {}
     ;

@@ -1,3 +1,10 @@
+# 1.1.0
+
+## New features
+
+- Expose the entire ABR response data to the onerror callback
+- Add the option to disable modal close on click outside
+
 # 1.0.5
 
 ## Improvements
