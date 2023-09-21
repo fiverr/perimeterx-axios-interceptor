@@ -300,7 +300,7 @@ i-=65536,n.push(i>>>10&1023|55296),i=56320|1023&i),n.push(i),o+=s}return functio
 ;// Decode in chunks to avoid "call stack size exceeded".
 let r="",n=0;for(;n<e;)r+=String.fromCharCode.apply(String,t.slice(n,n+=4096));return r}(n)}/*
  * Need to make sure that buffer isn't trying to write out of bounds.
- */function A(t,e,r){if(t%1!=0||t<0)throw RangeError("offset is not uint");if(t+e>r)throw RangeError("Trying to access beyond buffer length")}function R(t,e,r,n,o,i){if(!c.isBuffer(t))throw TypeError('"buffer" argument must be a Buffer instance');if(e>o||e<i)throw RangeError('"value" argument is out of bounds');if(r+n>t.length)throw RangeError("Index out of range")}function O(t,e,r,n,o){I(e,n,o,t,r,7);let i=Number(e&BigInt(4294967295));t[r++]=i,i>>=8,t[r++]=i,i>>=8,t[r++]=i,i>>=8,t[r++]=i;let s=Number(e>>BigInt(32)&BigInt(4294967295));return t[r++]=s,s>>=8,t[r++]=s,s>>=8,t[r++]=s,s>>=8,t[r++]=s,r}function S(t,e,r,n,o){I(e,n,o,t,r,7);let i=Number(e&BigInt(4294967295));t[r+7]=i,i>>=8,t[r+6]=i,i>>=8,t[r+5]=i,i>>=8,t[r+4]=i;let s=Number(e>>BigInt(32)&BigInt(4294967295));return t[r+3]=s,s>>=8,t[r+2]=s,s>>=8,t[r+1]=s,s>>=8,t[r]=s,r+8}function B(t,e,r,n,o,i){if(r+n>t.length||r<0)throw RangeError("Index out of range")}function L(t,e,r,n,o){return e=+e,r>>>=0,o||B(t,e,r,4,34028234663852886e22,-34028234663852886e22),s.write(t,e,r,n,23,4),r+4}function _(t,e,r,n,o){return e=+e,r>>>=0,o||B(t,e,r,8,17976931348623157e292,-17976931348623157e292),s.write(t,e,r,n,52,8),r+8}r=c,o=50,/**
+ */function A(t,e,r){if(t%1!=0||t<0)throw RangeError("offset is not uint");if(t+e>r)throw RangeError("Trying to access beyond buffer length")}function O(t,e,r,n,o,i){if(!c.isBuffer(t))throw TypeError('"buffer" argument must be a Buffer instance');if(e>o||e<i)throw RangeError('"value" argument is out of bounds');if(r+n>t.length)throw RangeError("Index out of range")}function R(t,e,r,n,o){I(e,n,o,t,r,7);let i=Number(e&BigInt(4294967295));t[r++]=i,i>>=8,t[r++]=i,i>>=8,t[r++]=i,i>>=8,t[r++]=i;let s=Number(e>>BigInt(32)&BigInt(4294967295));return t[r++]=s,s>>=8,t[r++]=s,s>>=8,t[r++]=s,s>>=8,t[r++]=s,r}function S(t,e,r,n,o){I(e,n,o,t,r,7);let i=Number(e&BigInt(4294967295));t[r+7]=i,i>>=8,t[r+6]=i,i>>=8,t[r+5]=i,i>>=8,t[r+4]=i;let s=Number(e>>BigInt(32)&BigInt(4294967295));return t[r+3]=s,s>>=8,t[r+2]=s,s>>=8,t[r+1]=s,s>>=8,t[r]=s,r+8}function B(t,e,r,n,o,i){if(r+n>t.length||r<0)throw RangeError("Index out of range")}function L(t,e,r,n,o){return e=+e,r>>>=0,o||B(t,e,r,4,34028234663852886e22,-34028234663852886e22),s.write(t,e,r,n,23,4),r+4}function _(t,e,r,n,o){return e=+e,r>>>=0,o||B(t,e,r,8,17976931348623157e292,-17976931348623157e292),s.write(t,e,r,n,52,8),r+8}r=c,o=50,/**
  * If `Buffer.TYPED_ARRAY_SUPPORT`:
  *   === true    Use Uint8Array implementation (fastest)
  *   === false   Print warning and recommend using `buffer` v4.x which has an Object
@@ -343,7 +343,7 @@ if(void 0===e)n="utf8",r=this.length,e=0;else if(void 0===r&&"string"==typeof e)
 return u=e,f=r,D(M(t),this,u,f);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return c=e,l=r,D(function(t,e){let r,n;let o=[];for(let i=0;i<t.length&&!((e-=2)<0);++i)n=(r=t.charCodeAt(i))>>8,o.push(r%256),o.push(n);return o}(t,this.length-c),this,c,l);default:if(p)throw TypeError("Unknown encoding: "+n);n=(""+n).toLowerCase(),p=!0}},c.prototype.toJSON=function(){return{type:"Buffer",data:Array.prototype.slice.call(this._arr||this,0)}},c.prototype.slice=function(t,e){let r=this.length;t=~~t,e=void 0===e?r:~~e,t<0?(t+=r)<0&&(t=0):t>r&&(t=r),e<0?(e+=r)<0&&(e=0):e>r&&(e=r),e<t&&(e=t);let n=this.subarray(t,e);return(// Return an augmented `Uint8Array` instance
 Object.setPrototypeOf(n,c.prototype),n)},c.prototype.readUintLE=c.prototype.readUIntLE=function(t,e,r){t>>>=0,e>>>=0,r||A(t,e,this.length);let n=this[t],o=1,i=0;for(;++i<e&&(o*=256);)n+=this[t+i]*o;return n},c.prototype.readUintBE=c.prototype.readUIntBE=function(t,e,r){t>>>=0,e>>>=0,r||A(t,e,this.length);let n=this[t+--e],o=1;for(;e>0&&(o*=256);)n+=this[t+--e]*o;return n},c.prototype.readUint8=c.prototype.readUInt8=function(t,e){return t>>>=0,e||A(t,1,this.length),this[t]},c.prototype.readUint16LE=c.prototype.readUInt16LE=function(t,e){return t>>>=0,e||A(t,2,this.length),this[t]|this[t+1]<<8},c.prototype.readUint16BE=c.prototype.readUInt16BE=function(t,e){return t>>>=0,e||A(t,2,this.length),this[t]<<8|this[t+1]},c.prototype.readUint32LE=c.prototype.readUInt32LE=function(t,e){return t>>>=0,e||A(t,4,this.length),(this[t]|this[t+1]<<8|this[t+2]<<16)+16777216*this[t+3]},c.prototype.readUint32BE=c.prototype.readUInt32BE=function(t,e){return t>>>=0,e||A(t,4,this.length),16777216*this[t]+(this[t+1]<<16|this[t+2]<<8|this[t+3])},c.prototype.readBigUInt64LE=q(function(t){N(t>>>=0,"offset");let e=this[t],r=this[t+7];(void 0===e||void 0===r)&&k(t,this.length-8);let n=e+256*this[++t]+65536*this[++t]+16777216*this[++t],o=this[++t]+256*this[++t]+65536*this[++t]+16777216*r;return BigInt(n)+(BigInt(o)<<BigInt(32))}),c.prototype.readBigUInt64BE=q(function(t){N(t>>>=0,"offset");let e=this[t],r=this[t+7];(void 0===e||void 0===r)&&k(t,this.length-8);let n=16777216*e+65536*this[++t]+256*this[++t]+this[++t],o=16777216*this[++t]+65536*this[++t]+256*this[++t]+r;return(BigInt(n)<<BigInt(32))+BigInt(o)}),c.prototype.readIntLE=function(t,e,r){t>>>=0,e>>>=0,r||A(t,e,this.length);let n=this[t],o=1,i=0;for(;++i<e&&(o*=256);)n+=this[t+i]*o;return n>=(o*=128)&&(n-=Math.pow(2,8*e)),n},c.prototype.readIntBE=function(t,e,r){t>>>=0,e>>>=0,r||A(t,e,this.length);let n=e,o=1,i=this[t+--n];for(;n>0&&(o*=256);)i+=this[t+--n]*o;return i>=(o*=128)&&(i-=Math.pow(2,8*e)),i},c.prototype.readInt8=function(t,e){return(t>>>=0,e||A(t,1,this.length),128&this[t])?-((255-this[t]+1)*1):this[t]},c.prototype.readInt16LE=function(t,e){t>>>=0,e||A(t,2,this.length);let r=this[t]|this[t+1]<<8;return 32768&r?4294901760|r:r},c.prototype.readInt16BE=function(t,e){t>>>=0,e||A(t,2,this.length);let r=this[t+1]|this[t]<<8;return 32768&r?4294901760|r:r},c.prototype.readInt32LE=function(t,e){return t>>>=0,e||A(t,4,this.length),this[t]|this[t+1]<<8|this[t+2]<<16|this[t+3]<<24},c.prototype.readInt32BE=function(t,e){return t>>>=0,e||A(t,4,this.length),this[t]<<24|this[t+1]<<16|this[t+2]<<8|this[t+3]},c.prototype.readBigInt64LE=q(function(t){N(t>>>=0,"offset");let e=this[t],r=this[t+7];(void 0===e||void 0===r)&&k(t,this.length-8);let n=this[t+4]+256*this[t+5]+65536*this[t+6]+(r<<24// Overflow
 );return(BigInt(n)<<BigInt(32))+BigInt(e+256*this[++t]+65536*this[++t]+16777216*this[++t])}),c.prototype.readBigInt64BE=q(function(t){N(t>>>=0,"offset");let e=this[t],r=this[t+7];(void 0===e||void 0===r)&&k(t,this.length-8);let n=(e<<24)+// Overflow
-65536*this[++t]+256*this[++t]+this[++t];return(BigInt(n)<<BigInt(32))+BigInt(16777216*this[++t]+65536*this[++t]+256*this[++t]+r)}),c.prototype.readFloatLE=function(t,e){return t>>>=0,e||A(t,4,this.length),s.read(this,t,!0,23,4)},c.prototype.readFloatBE=function(t,e){return t>>>=0,e||A(t,4,this.length),s.read(this,t,!1,23,4)},c.prototype.readDoubleLE=function(t,e){return t>>>=0,e||A(t,8,this.length),s.read(this,t,!0,52,8)},c.prototype.readDoubleBE=function(t,e){return t>>>=0,e||A(t,8,this.length),s.read(this,t,!1,52,8)},c.prototype.writeUintLE=c.prototype.writeUIntLE=function(t,e,r,n){if(t=+t,e>>>=0,r>>>=0,!n){let n=Math.pow(2,8*r)-1;R(this,t,e,r,n,0)}let o=1,i=0;for(this[e]=255&t;++i<r&&(o*=256);)this[e+i]=t/o&255;return e+r},c.prototype.writeUintBE=c.prototype.writeUIntBE=function(t,e,r,n){if(t=+t,e>>>=0,r>>>=0,!n){let n=Math.pow(2,8*r)-1;R(this,t,e,r,n,0)}let o=r-1,i=1;for(this[e+o]=255&t;--o>=0&&(i*=256);)this[e+o]=t/i&255;return e+r},c.prototype.writeUint8=c.prototype.writeUInt8=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,1,255,0),this[e]=255&t,e+1},c.prototype.writeUint16LE=c.prototype.writeUInt16LE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,2,65535,0),this[e]=255&t,this[e+1]=t>>>8,e+2},c.prototype.writeUint16BE=c.prototype.writeUInt16BE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,2,65535,0),this[e]=t>>>8,this[e+1]=255&t,e+2},c.prototype.writeUint32LE=c.prototype.writeUInt32LE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,4,4294967295,0),this[e+3]=t>>>24,this[e+2]=t>>>16,this[e+1]=t>>>8,this[e]=255&t,e+4},c.prototype.writeUint32BE=c.prototype.writeUInt32BE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,4,4294967295,0),this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t,e+4},c.prototype.writeBigUInt64LE=q(function(t,e=0){return O(this,t,e,BigInt(0),BigInt("0xffffffffffffffff"))}),c.prototype.writeBigUInt64BE=q(function(t,e=0){return S(this,t,e,BigInt(0),BigInt("0xffffffffffffffff"))}),c.prototype.writeIntLE=function(t,e,r,n){if(t=+t,e>>>=0,!n){let n=Math.pow(2,8*r-1);R(this,t,e,r,n-1,-n)}let o=0,i=1,s=0;for(this[e]=255&t;++o<r&&(i*=256);)t<0&&0===s&&0!==this[e+o-1]&&(s=1),this[e+o]=(t/i>>0)-s&255;return e+r},c.prototype.writeIntBE=function(t,e,r,n){if(t=+t,e>>>=0,!n){let n=Math.pow(2,8*r-1);R(this,t,e,r,n-1,-n)}let o=r-1,i=1,s=0;for(this[e+o]=255&t;--o>=0&&(i*=256);)t<0&&0===s&&0!==this[e+o+1]&&(s=1),this[e+o]=(t/i>>0)-s&255;return e+r},c.prototype.writeInt8=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,1,127,-128),t<0&&(t=255+t+1),this[e]=255&t,e+1},c.prototype.writeInt16LE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,2,32767,-32768),this[e]=255&t,this[e+1]=t>>>8,e+2},c.prototype.writeInt16BE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,2,32767,-32768),this[e]=t>>>8,this[e+1]=255&t,e+2},c.prototype.writeInt32LE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,4,2147483647,-2147483648),this[e]=255&t,this[e+1]=t>>>8,this[e+2]=t>>>16,this[e+3]=t>>>24,e+4},c.prototype.writeInt32BE=function(t,e,r){return t=+t,e>>>=0,r||R(this,t,e,4,2147483647,-2147483648),t<0&&(t=4294967295+t+1),this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t,e+4},c.prototype.writeBigInt64LE=q(function(t,e=0){return O(this,t,e,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))}),c.prototype.writeBigInt64BE=q(function(t,e=0){return S(this,t,e,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))}),c.prototype.writeFloatLE=function(t,e,r){return L(this,t,e,!0,r)},c.prototype.writeFloatBE=function(t,e,r){return L(this,t,e,!1,r)},c.prototype.writeDoubleLE=function(t,e,r){return _(this,t,e,!0,r)},c.prototype.writeDoubleBE=function(t,e,r){return _(this,t,e,!1,r)},// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+65536*this[++t]+256*this[++t]+this[++t];return(BigInt(n)<<BigInt(32))+BigInt(16777216*this[++t]+65536*this[++t]+256*this[++t]+r)}),c.prototype.readFloatLE=function(t,e){return t>>>=0,e||A(t,4,this.length),s.read(this,t,!0,23,4)},c.prototype.readFloatBE=function(t,e){return t>>>=0,e||A(t,4,this.length),s.read(this,t,!1,23,4)},c.prototype.readDoubleLE=function(t,e){return t>>>=0,e||A(t,8,this.length),s.read(this,t,!0,52,8)},c.prototype.readDoubleBE=function(t,e){return t>>>=0,e||A(t,8,this.length),s.read(this,t,!1,52,8)},c.prototype.writeUintLE=c.prototype.writeUIntLE=function(t,e,r,n){if(t=+t,e>>>=0,r>>>=0,!n){let n=Math.pow(2,8*r)-1;O(this,t,e,r,n,0)}let o=1,i=0;for(this[e]=255&t;++i<r&&(o*=256);)this[e+i]=t/o&255;return e+r},c.prototype.writeUintBE=c.prototype.writeUIntBE=function(t,e,r,n){if(t=+t,e>>>=0,r>>>=0,!n){let n=Math.pow(2,8*r)-1;O(this,t,e,r,n,0)}let o=r-1,i=1;for(this[e+o]=255&t;--o>=0&&(i*=256);)this[e+o]=t/i&255;return e+r},c.prototype.writeUint8=c.prototype.writeUInt8=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,1,255,0),this[e]=255&t,e+1},c.prototype.writeUint16LE=c.prototype.writeUInt16LE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,2,65535,0),this[e]=255&t,this[e+1]=t>>>8,e+2},c.prototype.writeUint16BE=c.prototype.writeUInt16BE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,2,65535,0),this[e]=t>>>8,this[e+1]=255&t,e+2},c.prototype.writeUint32LE=c.prototype.writeUInt32LE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,4,4294967295,0),this[e+3]=t>>>24,this[e+2]=t>>>16,this[e+1]=t>>>8,this[e]=255&t,e+4},c.prototype.writeUint32BE=c.prototype.writeUInt32BE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,4,4294967295,0),this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t,e+4},c.prototype.writeBigUInt64LE=q(function(t,e=0){return R(this,t,e,BigInt(0),BigInt("0xffffffffffffffff"))}),c.prototype.writeBigUInt64BE=q(function(t,e=0){return S(this,t,e,BigInt(0),BigInt("0xffffffffffffffff"))}),c.prototype.writeIntLE=function(t,e,r,n){if(t=+t,e>>>=0,!n){let n=Math.pow(2,8*r-1);O(this,t,e,r,n-1,-n)}let o=0,i=1,s=0;for(this[e]=255&t;++o<r&&(i*=256);)t<0&&0===s&&0!==this[e+o-1]&&(s=1),this[e+o]=(t/i>>0)-s&255;return e+r},c.prototype.writeIntBE=function(t,e,r,n){if(t=+t,e>>>=0,!n){let n=Math.pow(2,8*r-1);O(this,t,e,r,n-1,-n)}let o=r-1,i=1,s=0;for(this[e+o]=255&t;--o>=0&&(i*=256);)t<0&&0===s&&0!==this[e+o+1]&&(s=1),this[e+o]=(t/i>>0)-s&255;return e+r},c.prototype.writeInt8=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,1,127,-128),t<0&&(t=255+t+1),this[e]=255&t,e+1},c.prototype.writeInt16LE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,2,32767,-32768),this[e]=255&t,this[e+1]=t>>>8,e+2},c.prototype.writeInt16BE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,2,32767,-32768),this[e]=t>>>8,this[e+1]=255&t,e+2},c.prototype.writeInt32LE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,4,2147483647,-2147483648),this[e]=255&t,this[e+1]=t>>>8,this[e+2]=t>>>16,this[e+3]=t>>>24,e+4},c.prototype.writeInt32BE=function(t,e,r){return t=+t,e>>>=0,r||O(this,t,e,4,2147483647,-2147483648),t<0&&(t=4294967295+t+1),this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t,e+4},c.prototype.writeBigInt64LE=q(function(t,e=0){return R(this,t,e,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))}),c.prototype.writeBigInt64BE=q(function(t,e=0){return S(this,t,e,-BigInt("0x8000000000000000"),BigInt("0x7fffffffffffffff"))}),c.prototype.writeFloatLE=function(t,e,r){return L(this,t,e,!0,r)},c.prototype.writeFloatBE=function(t,e,r){return L(this,t,e,!1,r)},c.prototype.writeDoubleLE=function(t,e,r){return _(this,t,e,!0,r)},c.prototype.writeDoubleBE=function(t,e,r){return _(this,t,e,!1,r)},// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
 c.prototype.copy=function(t,e,r,n){if(!c.isBuffer(t))throw TypeError("argument should be a Buffer");// Copy 0 bytes; we're done
 if(r||(r=0),n||0===n||(n=this.length),e>=t.length&&(e=t.length),e||(e=0),n>0&&n<r&&(n=r),n===r||0===t.length||0===this.length)return 0;// Fatal error conditions
 if(e<0)throw RangeError("targetStart out of bounds");if(r<0||r>=this.length)throw RangeError("Index out of range");if(n<0)throw RangeError("sourceEnd out of bounds");n>this.length&&(n=this.length),t.length-e<n-r&&(n=t.length-e+r);let o=n-r;return this===t&&"function"==typeof Uint8Array.prototype.copyWithin?this.copyWithin(e,r,n):Uint8Array.prototype.set.call(t,this.subarray(r,n),e),o},// Usage:
@@ -355,12 +355,12 @@ if("string"==typeof t){if("string"==typeof e?(n=e,e=0,r=this.length):"string"==t
 if(e<0||this.length<e||this.length<r)throw RangeError("Out of range index");if(r<=e)return this;if(e>>>=0,r=void 0===r?this.length:r>>>0,t||(t=0),"number"==typeof t)for(o=e;o<r;++o)this[o]=t;else{let i=c.isBuffer(t)?t:c.from(t,n),s=i.length;if(0===s)throw TypeError('The value "'+t+'" is invalid for argument "value"');for(o=0;o<r-e;++o)this[o+e]=i[o%s]}return this};// CUSTOM ERRORS
 // =============
 // Simplified versions from Node, changed for Buffer-only usage
-let T={};function U(t,e,r){T[t]=class extends r{constructor(){super(),Object.defineProperty(this,"message",{value:e.apply(this,arguments),writable:!0,configurable:!0}),// Add the error code to the name to include it in the stack trace.
+let T={};function C(t,e,r){T[t]=class extends r{constructor(){super(),Object.defineProperty(this,"message",{value:e.apply(this,arguments),writable:!0,configurable:!0}),// Add the error code to the name to include it in the stack trace.
 this.name=`${this.name} [${t}]`,// Access the stack to generate the error message including the error code
 // from the name.
 this.stack// eslint-disable-line no-unused-expressions
 ,// Reset the name to the actual name.
-delete this.name}get code(){return t}set code(t){Object.defineProperty(this,"code",{configurable:!0,enumerable:!0,value:t,writable:!0})}toString(){return`${this.name} [${t}]: ${this.message}`}}}function C(t){let e="",r=t.length,n="-"===t[0]?1:0;for(;r>=n+4;r-=3)e=`_${t.slice(r-3,r)}${e}`;return`${t.slice(0,r)}${e}`}function I(t,e,r,n,o,i){if(t>r||t<e){let n;let o="bigint"==typeof e?"n":"";throw n=i>3?0===e||e===BigInt(0)?`>= 0${o} and < 2${o} ** ${(i+1)*8}${o}`:`>= -(2${o} ** ${(i+1)*8-1}${o}) and < 2 ** ${(i+1)*8-1}${o}`:`>= ${e}${o} and <= ${r}${o}`,new T.ERR_OUT_OF_RANGE("value",n,t)}N(o,"offset"),(void 0===n[o]||void 0===n[o+i])&&k(o,n.length-(i+1))}function N(t,e){if("number"!=typeof t)throw new T.ERR_INVALID_ARG_TYPE(e,"number",t)}function k(t,e,r){if(Math.floor(t)!==t)throw N(t,r),new T.ERR_OUT_OF_RANGE(r||"offset","an integer",t);if(e<0)throw new T.ERR_BUFFER_OUT_OF_BOUNDS;throw new T.ERR_OUT_OF_RANGE(r||"offset",`>= ${r?1:0} and <= ${e}`,t)}U("ERR_BUFFER_OUT_OF_BOUNDS",function(t){return t?`${t} is outside of buffer bounds`:"Attempt to access memory outside buffer bounds"},RangeError),U("ERR_INVALID_ARG_TYPE",function(t,e){return`The "${t}" argument must be of type number. Received type ${typeof e}`},TypeError),U("ERR_OUT_OF_RANGE",function(t,e,r){let n=`The value of "${t}" is out of range.`,o=r;return Number.isInteger(r)&&Math.abs(r)>4294967296?o=C(String(r)):"bigint"==typeof r&&(o=String(r),(r>BigInt(2)**BigInt(32)||r<-(BigInt(2)**BigInt(32)))&&(o=C(o)),o+="n"),n+=` It must be ${e}. Received ${o}`},RangeError);// HELPER FUNCTIONS
+delete this.name}get code(){return t}set code(t){Object.defineProperty(this,"code",{configurable:!0,enumerable:!0,value:t,writable:!0})}toString(){return`${this.name} [${t}]: ${this.message}`}}}function U(t){let e="",r=t.length,n="-"===t[0]?1:0;for(;r>=n+4;r-=3)e=`_${t.slice(r-3,r)}${e}`;return`${t.slice(0,r)}${e}`}function I(t,e,r,n,o,i){if(t>r||t<e){let n;let o="bigint"==typeof e?"n":"";throw n=i>3?0===e||e===BigInt(0)?`>= 0${o} and < 2${o} ** ${(i+1)*8}${o}`:`>= -(2${o} ** ${(i+1)*8-1}${o}) and < 2 ** ${(i+1)*8-1}${o}`:`>= ${e}${o} and <= ${r}${o}`,new T.ERR_OUT_OF_RANGE("value",n,t)}N(o,"offset"),(void 0===n[o]||void 0===n[o+i])&&k(o,n.length-(i+1))}function N(t,e){if("number"!=typeof t)throw new T.ERR_INVALID_ARG_TYPE(e,"number",t)}function k(t,e,r){if(Math.floor(t)!==t)throw N(t,r),new T.ERR_OUT_OF_RANGE(r||"offset","an integer",t);if(e<0)throw new T.ERR_BUFFER_OUT_OF_BOUNDS;throw new T.ERR_OUT_OF_RANGE(r||"offset",`>= ${r?1:0} and <= ${e}`,t)}C("ERR_BUFFER_OUT_OF_BOUNDS",function(t){return t?`${t} is outside of buffer bounds`:"Attempt to access memory outside buffer bounds"},RangeError),C("ERR_INVALID_ARG_TYPE",function(t,e){return`The "${t}" argument must be of type number. Received type ${typeof e}`},TypeError),C("ERR_OUT_OF_RANGE",function(t,e,r){let n=`The value of "${t}" is out of range.`,o=r;return Number.isInteger(r)&&Math.abs(r)>4294967296?o=U(String(r)):"bigint"==typeof r&&(o=String(r),(r>BigInt(2)**BigInt(32)||r<-(BigInt(2)**BigInt(32)))&&(o=U(o)),o+="n"),n+=` It must be ${e}. Received ${o}`},RangeError);// HELPER FUNCTIONS
 // ================
 let j=/[^+/0-9A-Za-z-_]/g;function P(t,e){let r;e=e||1/0;let n=t.length,o=null,i=[];for(let s=0;s<n;++s){// is surrogate component
 if((r=t.charCodeAt(s))>55295&&r<57344){// last char was a lead
@@ -405,9 +405,9 @@ f(new l("Network Error",l.ERR_NETWORK,t,b,b)),// Clean up request
 b=null},// Handle timeout
 b.ontimeout=function(){var e=t.timeout?"timeout of "+t.timeout+"ms exceeded":"timeout exceeded",r=t.transitional||c;t.timeoutErrorMessage&&(e=t.timeoutErrorMessage),f(new l(e,r.clarifyTimeoutError?l.ETIMEDOUT:l.ECONNABORTED,t,b)),// Clean up request
 b=null},r.isStandardBrowserEnv()){// Add xsrf header
-var R=(t.withCredentials||u(x))&&t.xsrfCookieName?o.read(t.xsrfCookieName):void 0;R&&(y[t.xsrfHeaderName]=R)}"setRequestHeader"in b&&r.forEach(y,function(t,e){void 0===g&&"content-type"===e.toLowerCase()?delete y[e]:b.setRequestHeader(e,t)}),r.isUndefined(t.withCredentials)||(b.withCredentials=!!t.withCredentials),m&&"json"!==m&&(b.responseType=t.responseType),"function"==typeof t.onDownloadProgress&&b.addEventListener("progress",t.onDownloadProgress),"function"==typeof t.onUploadProgress&&b.upload&&b.upload.addEventListener("progress",t.onUploadProgress),(t.cancelToken||t.signal)&&(// Handle cancellation
+var O=(t.withCredentials||u(x))&&t.xsrfCookieName?o.read(t.xsrfCookieName):void 0;O&&(y[t.xsrfHeaderName]=O)}"setRequestHeader"in b&&r.forEach(y,function(t,e){void 0===g&&"content-type"===e.toLowerCase()?delete y[e]:b.setRequestHeader(e,t)}),r.isUndefined(t.withCredentials)||(b.withCredentials=!!t.withCredentials),m&&"json"!==m&&(b.responseType=t.responseType),"function"==typeof t.onDownloadProgress&&b.addEventListener("progress",t.onDownloadProgress),"function"==typeof t.onUploadProgress&&b.upload&&b.upload.addEventListener("progress",t.onUploadProgress),(t.cancelToken||t.signal)&&(// Handle cancellation
 // eslint-disable-next-line func-names
-d=function(t){b&&(f(!t||t&&t.type?new h:t),b.abort(),b=null)},t.cancelToken&&t.cancelToken.subscribe(d),t.signal&&(t.signal.aborted?d():t.signal.addEventListener("abort",d))),g||(g=null);var O=p(x);if(O&&-1===["http","https","file"].indexOf(O)){f(new l("Unsupported protocol "+O+":",l.ERR_BAD_REQUEST,t));return}// Send the request
+d=function(t){b&&(f(!t||t&&t.type?new h:t),b.abort(),b=null)},t.cancelToken&&t.cancelToken.subscribe(d),t.signal&&(t.signal.aborted?d():t.signal.addEventListener("abort",d))),g||(g=null);var R=p(x);if(R&&-1===["http","https","file"].indexOf(R)){f(new l("Unsupported protocol "+R+":",l.ERR_BAD_REQUEST,t));return}// Send the request
 b.send(g)})}}),f.register("kk0E9",function(t,e){var r=f("6HVMZ");/**
  * Resolve or reject a Promise based on response status.
  *
@@ -578,7 +578,7 @@ function y(){}function m(){}function v(){}// This is a polyfill for %IteratorPro
 var b={};f(b,s,function(){return this});var w=Object.getPrototypeOf,E=w&&w(w(L([])));E&&E!==r&&n.call(E,s)&&// of the polyfill.
 (b=E);var x=v.prototype=y.prototype=Object.create(b);// Helper for defining the .next, .throw, and .return methods of the
 // Iterator interface in terms of a single ._invoke method.
-function A(t){["next","throw","return"].forEach(function(e){f(t,e,function(t){return this._invoke(e,t)})})}function R(t,e){var r;// Define the unified helper method that is used to implement .next,
+function A(t){["next","throw","return"].forEach(function(e){f(t,e,function(t){return this._invoke(e,t)})})}function O(t,e){var r;// Define the unified helper method that is used to implement .next,
 // .throw, and .return (see defineIteratorMethods).
 o(this,"_invoke",{value:function(o,i){function s(){return new e(function(r,s){!function r(o,i,s,a){var u=l(t[o],t,i);if("throw"===u.type)a(u.arg);else{var f=u.arg,c=f.value;return c&&"object"==typeof c&&n.call(c,"__await")?e.resolve(c.__await).then(function(t){r("next",t,s,a)},function(t){r("throw",t,s,a)}):e.resolve(c).then(function(t){// When a yielded Promise is resolved, its final value becomes
 // the .value of the Promise<{value,done}> result for the
@@ -597,10 +597,10 @@ return r("throw",t,s,a)})}}(o,i,r,s)})}return r=// all previous Promises have be
 // async functions in terms of async generators, it is especially
 // important to get this right, even though it requires care.
 r?r.then(s,// invocations of the iterator.
-s):s()}})}function O(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function S(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function B(t){// The root entry object (effectively a try statement without a catch
+s):s()}})}function R(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function S(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function B(t){// The root entry object (effectively a try statement without a catch
 // or a finally block) gives us a place to store values thrown from
 // locations where there is no enclosing try statement.
-this.tryEntries=[{tryLoc:"root"}],t.forEach(O,this),this.reset(!0)}function L(t){if(t){var r=t[s];if(r)return r.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var o=-1,i=function r(){for(;++o<t.length;)if(n.call(t,o))return r.value=t[o],r.done=!1,r;return r.value=e,r.done=!0,r};return i.next=i}}// Return an iterator with no values.
+this.tryEntries=[{tryLoc:"root"}],t.forEach(R,this),this.reset(!0)}function L(t){if(t){var r=t[s];if(r)return r.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var o=-1,i=function r(){for(;++o<t.length;)if(n.call(t,o))return r.value=t[o],r.done=!1,r;return r.value=e,r.done=!0,r};return i.next=i}}// Return an iterator with no values.
 return{next:_}}function _(){return{value:e,done:!0}}// Regardless of whether this script is executing as a CommonJS module
 // or not, return the runtime object so that we can declare the variable
 // regeneratorRuntime in the outer scope, which allows this module to be
@@ -611,10 +611,10 @@ return m.prototype=v,o(x,"constructor",{value:v,configurable:!0}),o(v,"construct
 // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
 // `hasOwn.call(value, "__await")` to determine if the yielded value is
 // meant to be awaited.
-t.awrap=function(t){return{__await:t}},A(R.prototype),f(R.prototype,a,function(){return this}),t.AsyncIterator=R,// Note that simple async functions are implemented on top of
+t.awrap=function(t){return{__await:t}},A(O.prototype),f(O.prototype,a,function(){return this}),t.AsyncIterator=O,// Note that simple async functions are implemented on top of
 // AsyncIterator objects; they just return a Promise for the value of
 // the final result produced by the iterator.
-t.async=function(e,r,n,o,i){void 0===i&&(i=Promise);var s=new R(c(e,r,n,o),i);return t.isGeneratorFunction(r)?s// If outerFn is a generator, return the full iterator.
+t.async=function(e,r,n,o,i){void 0===i&&(i=Promise);var s=new O(c(e,r,n,o),i);return t.isGeneratorFunction(r)?s// If outerFn is a generator, return the full iterator.
 :s.next().then(function(t){return t.done?t.value:s.next()})},// Define Generator.prototype.{next,throw,return} in terms of the
 // unified ._invoke helper method.
 A(x),f(x,u,"Generator"),// A Generator should always return itself as the iterator object when the
@@ -668,8 +668,8 @@ throw Error("illegal catch attempt")},delegateYield:function(t,r,n){return this.
 }return t+1}catch(t){return 2147483647}};var x=["Please exclude this website from ad blocking or ad filtering software.","Make sure you don't have any browser extensions tampering with request headers or user agent string."],A={};/**
  * Default modal className
  * @type {string}
- */const R="perimeterx-async-challenge",O="challenge-box",S="title",B="subtitle",L="quickfix";var _=(A={CHALLENGE_BOX_CLASSNAME:O,MODAL_CLASSNAME:R,QUICKFIX_CLASSNAME:L,styles:({zIndex:t=1e4}={})=>`
-.${R} {
+ */const O="perimeterx-async-challenge",R="challenge-box",S="title",B="subtitle",L="quickfix";var _=(A={CHALLENGE_BOX_CLASSNAME:R,MODAL_CLASSNAME:O,QUICKFIX_CLASSNAME:L,styles:({zIndex:t=1e4}={})=>`
+.${O} {
     z-index: ${t};
     position: fixed;
     left: 0;
@@ -682,7 +682,7 @@ throw Error("illegal catch attempt")},delegateYield:function(t,r,n){return this.
     background: rgba(0, 0, 0, .3);
     color: black;
 }
-.${R} > div {
+.${O} > div {
     margin: 20vh 20vw 0;
     background: white;
     box-shadow: 0 0 2em rgba(0, 0, 0, .4);
@@ -693,55 +693,55 @@ throw Error("illegal catch attempt")},delegateYield:function(t,r,n){return this.
     60% { max-height: 0px; }
     100% { max-height: 200px; }
 }
-.${O} > div > iframe {
+.${R} > div > iframe {
     margin: 0 auto;
     animation: px-challenge-appear .6s ease-in;
 }
-.${R} p,
-.${R} .${O} {
+.${O} p,
+.${O} .${R} {
     margin: 0 0 .5em;
 }
-.${R} .${S} {
+.${O} .${S} {
     font-size: 2em;
     font-weight: bold;
 }
-.${R} .${B} {
+.${O} .${B} {
     font-size: 1.4em;
 }
-.${R} .${L} {
+.${O} .${L} {
     font-size: .8em;
     margin: 0;
 }
-.${R} .${L}:before {
+.${O} .${L}:before {
     content: "\\2022";
     margin: 0 .5em
 }
 @media screen and (max-width:1040px) {
-    .${R} > div {
+    .${O} > div {
         margin: 10vh 10vw 0;
     }
 }
 @media screen and (max-width:800px) {
-    .${R} > div {
+    .${O} > div {
         margin: 5vw 5vw 0;
     }
 }
-`,SUBTITLE_CLASSNAME:B,TITLE_CLASSNAME:S}).CHALLENGE_BOX_CLASSNAME,T=A.styles,U=A.MODAL_CLASSNAME,C=A.QUICKFIX_CLASSNAME,I=A.SUBTITLE_CLASSNAME,N=A.TITLE_CLASSNAME;const k="px-captcha";/**
+`,SUBTITLE_CLASSNAME:B,TITLE_CLASSNAME:S}).CHALLENGE_BOX_CLASSNAME,T=A.styles,C=A.MODAL_CLASSNAME,U=A.QUICKFIX_CLASSNAME,I=A.SUBTITLE_CLASSNAME,N=A.TITLE_CLASSNAME;const k="px-captcha";/**
  * Create and append a paragraph with text to a parent
  * @param {HTMLElement} parent
  * @param {string}      text
  * @param {string}      [className]
  * @returns {void}
- */function j(t,e,r=""){let n=document.createElement("p");r&&(n.className=r),n.appendChild(document.createTextNode(e)),t.appendChild(n)}var P=function(){[`.${U}`,`#${k}`].forEach(t=>{let e=document.querySelector(t);e&&e.parentElement.removeChild(e)}),t&&(t.disconnect(),t=null)},M=function({className:e="",title:r="One Small Step",subtitle:n="Please check the box below to continue your normal visit",quickfixes:o=x,suffix:i="If you're still having trouble accessing the site, please contact customer support.",abort:s=()=>null}={}){// The dialog element is used as an overlay on the page
-let a=document.createElement("dialog");a.className=[U,e].filter(Boolean).join(" "),a.setAttribute("open","open"),a.addEventListener("click",({target:t})=>{t===a&&(t.classList.contains("working")||s())},{capture:!1});// Inner UI box
-let u=document.createElement("div");r&&j(u,r,N),n&&j(u,n,I);// Placeholder for PerimeterX challenge
+ */function j(t,e,r=""){let n=document.createElement("p");r&&(n.className=r),n.appendChild(document.createTextNode(e)),t.appendChild(n)}var P=function(){[`.${C}`,`#${k}`].forEach(t=>{let e=document.querySelector(t);e&&e.parentElement.removeChild(e)}),t&&(t.disconnect(),t=null)},M=function({className:e="",title:r="One Small Step",subtitle:n="Please check the box below to continue your normal visit",quickfixes:o=x,suffix:i="If you're still having trouble accessing the site, please contact customer support.",abort:s=()=>null,allowClose:a=!0}={}){// The dialog element is used as an overlay on the page
+let u=document.createElement("dialog");u.className=[C,e].filter(Boolean).join(" "),u.setAttribute("open","open"),a&&u.addEventListener("click",({target:t})=>{t===u&&(t.classList.contains("working")||s())},{capture:!1});// Inner UI box
+let f=document.createElement("div");r&&j(f,r,N),n&&j(f,n,I);// Placeholder for PerimeterX challenge
 // Will be filled by PerimeterX loaded Javascript code
-let f=document.createElement("div");f.id=k,f.className=_,u.appendChild(f),// Quickfixes paragraphs
-o&&o.forEach(t=>j(u,t,C)),// Contact support text
-i&&j(u,i);// Style element (CSS)
-let c=document.createElement("style"),l=w(9999);return c.textContent=T({zIndex:l}),u.appendChild(c),t&&t.disconnect(),// Check we're not disturbing reCAPTCHA's pedestrain crossing recogniser
+let c=document.createElement("div");c.id=k,c.className=_,f.appendChild(c),// Quickfixes paragraphs
+o&&o.forEach(t=>j(f,t,U)),// Contact support text
+i&&j(f,i);// Style element (CSS)
+let l=document.createElement("style"),h=w(9999);return l.textContent=T({zIndex:h}),f.appendChild(l),t&&t.disconnect(),// Check we're not disturbing reCAPTCHA's pedestrain crossing recogniser
 (t=new MutationObserver((t,e)=>{t.forEach(({target:t})=>{// Find div containing Google reCAPTCHA iframe
-if(t.querySelector('iframe[src*="recaptcha"]')){let r=Number(window.getComputedStyle(t).getPropertyValue("z-index"));r&&r<=l&&(c.textContent=T({zIndex:r-1}),e.disconnect())}})})).observe(document.body,{attributes:!1,childList:!0,subtree:!0}),a.appendChild(u),a},D=function(){let t=document.querySelector(`.${U}`);t&&t.classList.add("working")};/**
+if(t.querySelector('iframe[src*="recaptcha"]')){let r=Number(window.getComputedStyle(t).getPropertyValue("z-index"));r&&r<=h&&(l.textContent=T({zIndex:r-1}),e.disconnect())}})})).observe(document.body,{attributes:!1,childList:!0,subtree:!0}),u.appendChild(f),u},D=function(){let t=document.querySelector(`.${C}`);t&&t.classList.add("working")};/**
  * Open a modal for user
  * @param {string} appId [PXXXXXXXXX]
  * @param {string} jsClientSrc Absolute path to the sensor Javascript file [https://client.perimeterx.net/PXXXXXXXXX/main.min.js]
@@ -776,7 +776,7 @@ const $=[];/**
  * Handle status codes that falls outside the range of 2xx
  * @param error AxiosError thrown by non 2xx responses
  * @returns Promise.reject<error>
- */y=function(t){let{axios:e,filter:r,onintercept:n,onignore:o,onsuccess:i,onfailure:s,onerror:a,simulate:u,modalConfig:f}=this;return new Promise((c,l)=>{try{let{response:a={}}=t,{data:h,status:p}=a;if(403!==p||!m(h)){l(t);return}let d=r({appId:h.appId,path:t.config&&t.config.url});if(!d){t.ignored=!0,o(t.config),l(t);return}// Simulate mode - report only
+ */y=function(t){let{axios:e,filter:r,onintercept:n,onignore:o,onsuccess:i,onfailure:s,onerror:a,simulate:u,modalConfig:f}=this;return new Promise((c,l)=>{try{let{response:a={}}=t,{data:h,status:p}=a;if(403!==p||!m(h)){l(t);return}let d=r(Object.assign({},h,{path:t.config&&t.config.url}));if(!d){t.ignored=!0,o(t.config),l(t);return}// Simulate mode - report only
 if(n(t.config),u){l(t);return}let g=0===F.size;F.enqueue(r=>r?l(r)||s(t.config,r):e(t.config).then(c).catch(l)&&i(t.config)),g&&b(h,f).then(()=>F.release()).catch(t=>F.release(t))}catch(e){l(t),e.toJSON=()=>({message:e.message,stack:e.stack,code:"AXIOS_INTERCEPTOR_ERROR",config:JSON.stringify(t.config)}),a(e)}})},/**
  * Attach PerimeterX interceptor to an axios instance
  * @param {Axios}    axios instance
@@ -818,11 +818,11 @@ if(n(t.config),u){l(t);return}let g=0===F.size;F.enqueue(r=>r?l(r)||s(t.config,r
  * Detach PerimeterX interceptor from an axios instance
  * @param axios Axios instance
  * @returns self
- */d.detach=function(t){return e.has(t)&&(t.interceptors.response.eject(e.get(t)),e.delete(t)),d};var q={};function z(...t){X("debug",...t)}function J(...t){X("info",...t)}/**
+ */d.detach=function(t){return e.has(t)&&(t.interceptors.response.eject(e.get(t)),e.delete(t)),d};var q={};function z(...t){K("debug",...t)}function J(...t){K("info",...t)}/**
  * Add debug log records at the top
  * @param {...string}
  * @returns {void}
- */function X(t,...e){r=r||document.getElementById("output");let n=document.createElement("p");n.className=t,/**
+ */function K(t,...e){r=r||document.getElementById("output");let n=document.createElement("p");n.className=t,/**
  * Typewriter effect
  * @param {string}
  * @param {HTMLElement}
@@ -1067,35 +1067,35 @@ o.charAt(0|s)||(a="=",s%1);i+=a.charAt(63&e>>8-s%1*8)){if((n=o.charCodeAt(s+=3/4
 	 * @param {string} [code] The error code (for example, 'ECONNABORTED').
 	 @ @param {Object} [response] The response.
 	 * @returns {Error} The error.
-	 */t.exports=function(t,e,r,n){return t.config=e,r&&(t.code=r),t.response=n,t};/***/}]);var K={};/**
+	 */t.exports=function(t,e,r,n){return t.config=e,r&&(t.code=r),t.response=n,t};/***/}]);var X={};/**
  * @type {string}
  */const G="PX_1234";/**
  * Response object with getters to allow moxios to return different
  * results for the same route based on the request count. This mimics
  * a request that's blocked and after exoneration is allowed.
- */K=class t{/**
+ */X=class t{/**
      * @param {string} [o.appId]
      * @param {number} [o.failureCount] Amount of times to block before success
-     */constructor({appId:e=G,failureCount:r=1}={}){this.iterations=-1,this.failureCount=r,this.blockResponse=t.blockResponse(e)}/**
+     */constructor({appId:e=G,failureCount:r=1,...n}={}){this.iterations=-1,this.failureCount=r,this.blockResponse=t.blockResponse(e,n)}/**
      * @returns {string} the default appID
      */static get defaultAppId(){return G}/**
      * PerimeterX 403 response body
      * @param {string} [appId]
      * @returns {object}
-     */static blockResponse(t=G){return{appId:t,jsClientSrc:`https://client.perimeterx.net/${t}/main.min.js`,firstPartyEnabled:!1,vid:"2b99ec08-3a22-49f0-a289-a4a6c330b059",uuid:"610a4a35-c45f-4cae-bc58-5abac3a4cdcd",hostUrl:"https://www.website.net",blockScript:`https://captcha.px-cdn.net/${t}/captcha.js`}}/**
+     */static blockResponse(t=G,e={}){return{appId:t,jsClientSrc:`https://client.perimeterx.net/${t}/main.min.js`,firstPartyEnabled:!1,vid:"2b99ec08-3a22-49f0-a289-a4a6c330b059",uuid:"610a4a35-c45f-4cae-bc58-5abac3a4cdcd",hostUrl:"https://www.website.net",blockScript:`https://captcha.px-cdn.net/${t}/captcha.js`,...e}}/**
      * Side effect of incrementing the request count
      * @returns {json}
      */get response(){return this.iterations++,this.iterations<this.failureCount?this.blockResponse:"Successful request"}/**
      * @returns {number} status code
-     */get status(){return this.iterations<this.failureCount?403:200}};const V="/success",H="/fail",W="/forbidden",Y="/pxblock",Z="/pxblock3",Q=[,,,].fill(Z),tt="/pxignore",te=Object.entries({SIMPLE_SUCCESSFUL_REQUEST:V,SIMPLE_SERVER_ERROR:H,SIMPLE_FORBIDDEN:W,BLOCK_REQUEST_AND_EXONERATE:Y,BLOCK_MULTIPLE_REQUESTS:Q,BLOCK_BUT_IGNORE_THE_BLOCKAGE:tt}).map(([t,e])=>({text:t.replace(/_/g," ").toLowerCase(),value:e}));function tr(t,e=""){tr.replay=()=>tr(t,e),z(`Stub requests with app ID [${e||"MISSING APP ID"}]`),/*@__PURE__*/o(q).uninstall(t),/*@__PURE__*/o(q).install(t),/*@__PURE__*/o(q).stubRequest(V,{status:200,response:"Success"}),/*@__PURE__*/o(q).stubRequest(H,{status:500,response:"Server error"}),/*@__PURE__*/o(q).stubRequest(W,{status:403,response:"Forbidden"}),/*@__PURE__*/o(q).stubRequest(Y,new/*@__PURE__*/(o(K))({appId:e})),/*@__PURE__*/o(q).stubRequest(Z,new/*@__PURE__*/(o(K))({appId:e,failureCount:3})),/*@__PURE__*/o(q).stubRequest(tt,new/*@__PURE__*/(o(K))({appId:e}))}const tn={onerror:t=>tr.replay()||J("[onerror]",t.message,":",t.stack),onintercept:t=>J("[onintercept]",t.url),onignore:t=>J("[onignore]",t.url),onsuccess:t=>J("[onsuccess]",t.url),onfailure:(t,e)=>tr.replay()||J("[onfailure]",t.url,":",e.message),filter:({path:t})=>"/pxignore"!==t,modalConfig:{}},to=t=>Object.assign(tn,{simulate:t});Object.assign(window,{regeneratorRuntime:/*@__PURE__*/o(c)});// Add a delay, for dramatic effect
-const{get:ti}=/*@__PURE__*/o(h);/*@__PURE__*/o(h).get=(...t)=>p(200).then(()=>ti(...t)),window.toggle_custom_settings.addEventListener("change",()=>{var t;z(`Reattach axios instance: ${window.toggle_custom_settings.checked?"With":"Without"} custom settings`),(0,d.detach)(/*@__PURE__*/o(h)),t=window.toggle_custom_settings.checked,tn.modalConfig=t?{className:"my-challenge-popup",title:"Are you human?",subtitle:"Please complete the challenge",quickfixes:["1. Disable adblocker","2. Enable Javascript"],suffix:"Still having issues? Contact support at support@example.com"}:{},(0,d.attach)(/*@__PURE__*/o(h),tn)}),window.toggle_simulate_mode.addEventListener("change",()=>{z(`Reattach axios instance: Simulate mode ${window.toggle_simulate_mode.checked?"on":"off"} (Only print to console).`),(0,d.detach)(/*@__PURE__*/o(h)),to(window.toggle_simulate_mode.checked),(0,d.attach)(/*@__PURE__*/o(h),tn)});{let t=()=>document.body.classList.toggle("no-debug",!window.toggle_debug.checked);window.toggle_debug.addEventListener("change",t),t()}{let t=()=>document.body.classList.toggle("no-logs",!window.toggle_log.checked);window.toggle_log.addEventListener("change",t),t()}{let t=()=>document.body.classList.toggle("no-instructions",!window.toggle_instructions.checked);window.toggle_instructions.addEventListener("change",t),t()}(0,d.attach)(/*@__PURE__*/o(h),tn),z("Disable submit for all forms"),[].forEach.call(document.forms,t=>t.addEventListener("submit",t=>t.preventDefault(),{capture:!0})),z("Search appId in query string");const[,ts]=window.location.search.match(/(?:\?|&)appId=(.*)(&|$)/)||[];z("Mock API endpoints"),tr(/*@__PURE__*/o(h),ts),z("Attach App ID input handler"),window.app_id_input.value=ts||"",z("Populate form options"),function(){let t=document.createDocumentFragment();te.forEach(({text:e,value:r})=>t.appendChild(/**
+     */get status(){return this.iterations<this.failureCount?403:200}};const V="/success",H="/fail",W="/forbidden",Y="/pxblock",Z="/pxblock3",Q=[,,,].fill(Z),tt="/pxignore",te="/pxignoreabr",tr=Object.entries({SIMPLE_SUCCESSFUL_REQUEST:V,SIMPLE_SERVER_ERROR:H,SIMPLE_FORBIDDEN:W,BLOCK_REQUEST_AND_EXONERATE:Y,BLOCK_MULTIPLE_REQUESTS:Q,BLOCK_BUT_IGNORE_THE_BLOCKAGE:tt,IGNORE_ADVANCED_BLOCK_RESPONSE:te}).map(([t,e])=>({text:t.replace(/_/g," ").toLowerCase(),value:e}));function tn(t,e=""){tn.replay=()=>tn(t,e),z(`Stub requests with app ID [${e||"MISSING APP ID"}]`),/*@__PURE__*/o(q).uninstall(t),/*@__PURE__*/o(q).install(t),/*@__PURE__*/o(q).stubRequest(V,{status:200,response:"Success"}),/*@__PURE__*/o(q).stubRequest(H,{status:500,response:"Server error"}),/*@__PURE__*/o(q).stubRequest(W,{status:403,response:"Forbidden"}),/*@__PURE__*/o(q).stubRequest(Y,new/*@__PURE__*/(o(X))({appId:e})),/*@__PURE__*/o(q).stubRequest(te,new/*@__PURE__*/(o(X))({appId:e,ignore:!0})),/*@__PURE__*/o(q).stubRequest(Z,new/*@__PURE__*/(o(X))({appId:e,failureCount:3})),/*@__PURE__*/o(q).stubRequest(tt,new/*@__PURE__*/(o(X))({appId:e}))}const to={onerror:t=>tn.replay()||J("[onerror]",t.message,":",t.stack),onintercept:t=>J("[onintercept]",t.url),onignore:t=>J("[onignore]",t.url),onsuccess:t=>J("[onsuccess]",t.url),onfailure:(t,e)=>tn.replay()||J("[onfailure]",t.url,":",e.message),filter:({path:t,ignore:e})=>!0!==e&&"/pxignore"!==t,modalConfig:{}},ti=t=>Object.assign(to,{simulate:t});Object.assign(window,{regeneratorRuntime:/*@__PURE__*/o(c)});// Add a delay, for dramatic effect
+const{get:ts}=/*@__PURE__*/o(h);/*@__PURE__*/o(h).get=(...t)=>p(200).then(()=>ts(...t)),window.toggle_custom_settings.addEventListener("change",()=>{var t;z(`Reattach axios instance: ${window.toggle_custom_settings.checked?"With":"Without"} custom settings`),(0,d.detach)(/*@__PURE__*/o(h)),t=window.toggle_custom_settings.checked,to.modalConfig=t?{className:"my-challenge-popup",title:"Are you human?",subtitle:"Please complete the challenge",quickfixes:["1. Disable adblocker","2. Enable Javascript"],suffix:"Still having issues? Contact support at support@example.com",allowClose:!1}:{},(0,d.attach)(/*@__PURE__*/o(h),to)}),window.toggle_simulate_mode.addEventListener("change",()=>{z(`Reattach axios instance: Simulate mode ${window.toggle_simulate_mode.checked?"on":"off"} (Only print to console).`),(0,d.detach)(/*@__PURE__*/o(h)),ti(window.toggle_simulate_mode.checked),(0,d.attach)(/*@__PURE__*/o(h),to)});{let t=()=>document.body.classList.toggle("no-debug",!window.toggle_debug.checked);window.toggle_debug.addEventListener("change",t),t()}{let t=()=>document.body.classList.toggle("no-logs",!window.toggle_log.checked);window.toggle_log.addEventListener("change",t),t()}{let t=()=>document.body.classList.toggle("no-instructions",!window.toggle_instructions.checked);window.toggle_instructions.addEventListener("change",t),t()}(0,d.attach)(/*@__PURE__*/o(h),to),z("Disable submit for all forms"),[].forEach.call(document.forms,t=>t.addEventListener("submit",t=>t.preventDefault(),{capture:!0})),z("Search appId in query string");const[,ta]=window.location.search.match(/(?:\?|&)appId=(.*)(&|$)/)||[];z("Mock API endpoints"),tn(/*@__PURE__*/o(h),ta),z("Attach App ID input handler"),window.app_id_input.value=ta||"",z("Populate form options"),function(){let t=document.createDocumentFragment();tr.forEach(({text:e,value:r})=>t.appendChild(/**
  * @param {string} text
  * @param {string} value
  * @returns {HTMLOptionElement}
- */function(t,e){let r=document.createElement("button");return r.name=e,r.appendChild(document.createTextNode(t)),r}(e,r)));let e=document.querySelector("#request_form button");e.parentNode.insertBefore(t,e)}(),z("Attach form handlers"),function({input:t,form:e,axios:r}){let n=document.querySelector("textarea");function o(t){document.body.classList.remove("loading"),n.value=[t,n.value].filter(Boolean).join("\n")}e.addEventListener("submit",e=>{e.preventDefault();let{name:n}=e.submitter;if(!n){o("-- Reset --"),tr(r,t.value);return}if(document.body.classList.add("loading"),n.includes(",")){n.split(",").forEach(t=>r.get(t).then(({data:t})=>o(t)).catch(({message:t})=>o(t)));return}r.get(n).then(({data:t})=>o(t)).catch(({message:t,ignored:e})=>e?o(t)||tr.replay():o(t))},{capture:!0}),["keyup","change"].forEach(e=>t.addEventListener(e,/**
+ */function(t,e){let r=document.createElement("button");return r.name=e,r.appendChild(document.createTextNode(t)),r}(e,r)));let e=document.querySelector("#request_form button");e.parentNode.insertBefore(t,e)}(),z("Attach form handlers"),function({input:t,form:e,axios:r}){let n=document.querySelector("textarea");function o(t){document.body.classList.remove("loading"),n.value=[t,n.value].filter(Boolean).join("\n")}e.addEventListener("submit",e=>{e.preventDefault();let{name:n}=e.submitter;if(!n){o("-- Reset --"),tn(r,t.value);return}if(document.body.classList.add("loading"),n.includes(",")){n.split(",").forEach(t=>r.get(t).then(({data:t})=>o(t)).catch(({message:t})=>o(t)));return}r.get(n).then(({data:t})=>o(t)).catch(({message:t,ignored:e})=>e?o(t)||tn.replay():o(t))},{capture:!0}),["keyup","change"].forEach(e=>t.addEventListener(e,/**
  * @param {function} fn Function to execute after delay has passed from last call
  * @param {number} [delay=500] Appr milliseconds to delay before execution
  * @returns {function} A "debounced" function
- */function(t,e=500){let r;return function(...n){clearTimeout(r),r=setTimeout(t.bind(this,...n),e)}}(()=>tr(r,t.value)),{capture:!0}))}({input:window.app_id_input,form:window.request_form,axios:/*@__PURE__*/o(h)}),document.querySelector("kbd").innerHTML=[location.origin,location.pathname,"?appId=PXXXXXXXXX"].join("");//# sourceMappingURL=index.df0a5cb7.js.map
+ */function(t,e=500){let r;return function(...n){clearTimeout(r),r=setTimeout(t.bind(this,...n),e)}}(()=>tn(r,t.value)),{capture:!0}))}({input:window.app_id_input,form:window.request_form,axios:/*@__PURE__*/o(h)}),document.querySelector("kbd").innerHTML=[location.origin,location.pathname,"?appId=PXXXXXXXXX"].join("");//# sourceMappingURL=index.fb06720d.js.map
 
-//# sourceMappingURL=index.df0a5cb7.js.map
+//# sourceMappingURL=index.fb06720d.js.map
