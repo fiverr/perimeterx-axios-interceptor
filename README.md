@@ -224,3 +224,53 @@ modalConfig: {
 ```
 ## About axios instances
 If you plan to [create axios instances](https://github.com/axios/axios#creating-an-instance), I suggest you consider using [axios-inherit](https://www.npmjs.com/package/axios-inherit) to add interceptor inheritance capability.
+
+## Flow for simultaneous blocked requests
+
+```mermaid
+sequenceDiagram
+  participant C as Client
+  participant A as Axios Proxy
+  participant O as Origin
+
+  C ->> A: Request 1
+  C ->> A: Request 2
+  C ->> A: Request 3
+  A ->> O: Request 1
+  A ->> O: Request 2
+  A ->> O: Request 3
+  O -x A: Response 1 Blocked
+  O -x A: Response 2 Blocked
+  O -x A: Response 3 Blocked
+  A --> C: Challenge Solve
+  A ->> O: Replay Request 1
+  A ->> O: Replay Request 2
+  A ->> O: Replay Request 3
+  O ->> A: Response 1
+  O ->> A: Response 2
+  O ->> A: Response 3
+  A ->> C: Response 1
+  A ->> C: Response 2
+  A ->> C: Response 3
+```
+
+Simultaneous blocked requests will be solved in the same challenge solve. This means that if you have 3 blocked requests, the challenge will be solved once and all 3 requests will be replayed.
+
+1. All requests will get a chance to hit the server and get blocked.
+1. The first blocked response will trigger a challenge modal show.
+1. Subsequent blocked responses will result in their respective requests being added to a queue.
+1. A solve event will trigger a replay for each request in the queue by the order they were added.
+1. Each request will be resolved with its respective response (original promise).
+1. If the challenge fails to be solved, all requests will be rejected with the same error.
+
+### Other possibilities I considered
+
+#### Challenge for each blocked request
+This would result in multiple challenges being shown to the user. This is not a good user experience.
+
+#### When a challenge is shown - queue all requests
+This could result in requests that should not be enforced by PerimeterX being blocked. This can result in data loss for business analytics, technical metrics, and marketing data.
+Allowing some routes to pass this creates tight coupling between the enforcer configuration and the application code. This is not a good practice.
+
+#### Disable modal close
+This would result in a bad user experience. The user will be forced to solve the challenge before useing the site. Some blocked requests are not triggered by user interaction, and the user can continue to use the site without solving the challenge. Other times, this can limit the user's access to information they filled in a form, or other data they were working on, and can not post it (blocked) or save it (obstructed by modal).

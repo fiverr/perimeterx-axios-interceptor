@@ -1,3 +1,8 @@
+# 1.0.6
+
+## Bug Fix
+Prevent breakage when AxiosError config is undefined [related issue](https://github.com/axios/axios/issues/4951)
+
 # 1.0.5
 
 ## Improvements
