@@ -3,6 +3,7 @@ import { AxiosInstance, AxiosError } from 'axios';
 interface FilterOptions {
     path: string;
     appId?: string;
+    [key: string]: any;
 }
 
 export interface PerimeterXInterceptorConfig {
@@ -12,8 +13,15 @@ export interface PerimeterXInterceptorConfig {
     onsuccess: (request: Request) => void;
     onfailure: (request: Request, error: AxiosError) => void;
     onerror: (error: AxiosError) => void;
+    simulate: boolean;
     modalConfig: {
+        className: string;
+        title: string;
+        subtitle: string;
+        quickfixes: string[];
+        suffix: string;
         timeout: number;
+        allowClose: boolean;
     }
 }
 
