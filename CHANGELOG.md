@@ -1,3 +1,9 @@
+# 1.1.1
+
+## Fix
+
+- Fix "types"
+
 # 1.1.0
 
 ## New features
