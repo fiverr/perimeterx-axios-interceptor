@@ -82,4 +82,6 @@ formHandler({
     axios
 });
 
+window._pxMonitorAbr = false;
+
 document.querySelector('kbd').innerHTML = [ location.origin, location.pathname, '?appId=PXXXXXXXXX' ].join('');

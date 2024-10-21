@@ -44,6 +44,9 @@ attach(axios, {
 
 // Remove the interceptor for some reason. Perhaps in order to re attach with different settings
 detach(axios);
+
+// Disable Auto-ABR
+window._pxMonitorAbr = false;
 ```
 
 ### Flow description
