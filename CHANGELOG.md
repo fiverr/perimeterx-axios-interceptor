@@ -1,3 +1,9 @@
+# 1.1.2
+
+## Improvement
+
+- Add a link preload for the challenge script to increase its priority
+
 # 1.1.1
 
 ## Fix
