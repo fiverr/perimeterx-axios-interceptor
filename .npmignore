@@ -1,6 +1,7 @@
 .*
 *.log
 spec.js
+*.config.*
 __snapshots__
 /playground
 /tools
