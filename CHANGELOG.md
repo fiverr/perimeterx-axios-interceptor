@@ -1,3 +1,9 @@
+# 1.1.3
+
+## Improvement
+
+- Replace priority link preload with fetchpriority attribute
+
 # 1.1.2
 
 ## Improvement
