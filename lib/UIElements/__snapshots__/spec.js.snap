@@ -47,6 +47,7 @@ exports[`lib/UIElements createModal should build the modal UI, PerimeterX and de
     padding: 0;
     background: rgba(0, 0, 0, .3);
     color: black;
+    
 }
 .perimeterx-async-challenge &gt; div {
     margin: 20vh 20vw 0;

@@ -38,7 +38,8 @@ attach(axios, {
         ],
         suffix: 'Still having issues? Contact support at support@example.com',
         timeout: 3000,
-        allowClose: false
+        allowClose: false,
+        compact: false,
     }
 });
 
@@ -213,6 +214,8 @@ This object allows configuration of the modal GUI:
     - **Default**: 3000 (3 seconds)
 - allowClose (`{boolean}`): Allow users to close the modal
     - **Default**: true
+= compact (`{boolean}`): Compact mode - modify some of the default CSS to reduce the size of the modal - helps to fit in tight spaces like iframes
+    - **Default**: false
 
 > Setting "title", "subtitle", "quickfixes", or "suffix" to a falsy value (null, empty string...) will prevent them from being rendered to GUI.
 

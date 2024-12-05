@@ -22,6 +22,7 @@ export interface PerimeterXInterceptorConfig {
         suffix?: string;
         timeout?: number;
         allowClose?: boolean;
+        compact?: boolean;
     }
 }
 

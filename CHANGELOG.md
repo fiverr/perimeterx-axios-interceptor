@@ -1,49 +1,63 @@
-# 1.1.3
+# Changelog
 
-## Improvement
+## 1.2.1
+
+### Fix (typescript)
+
+- Add missing type for `compact` mode
+
+## 1.2.0
+
+### New feature
+
+- Add "compact" mode to modal configuration to reduce the size of the modal - helps to fit in tight spaces like iframes
+
+## 1.1.3
+
+### Improvement
 
 - Replace priority link preload with fetchpriority attribute
 
-# 1.1.2
+## 1.1.2
 
-## Improvement
+### Improvement
 
 - Add a link preload for the challenge script to increase its priority
 
-# 1.1.1
+## 1.1.1
 
-## Fix
+### Fix
 
 - Fix "types"
 
-# 1.1.0
+## 1.1.0
 
-## New features
+### New features
 
 - Expose the entire ABR response data to the onerror callback
 - Add the option to disable modal close on click outside
 
-# 1.0.5
+## 1.0.5
 
-## Improvements
+### Improvements
 Fix (onerror report) for 403 responses with no data
 
-# 1.0.4
+## 1.0.4
 
-## Improvements
+### Improvements
 Exposing package `types` entry.
 
-# 1.0.3
+## 1.0.3
 
-## Improvements
+### Improvements
 
-### Reinstate existing _pxOnCaptchaSuccess
+#### Reinstate existing _pxOnCaptchaSuccess
 Superimpose existing _pxOnCaptchaSuccess (when applicable) and reinstate the old one when finished
 
-### Allow UI timeout to be Infinity
+#### Allow UI timeout to be Infinity
 To disable abort function for long wait
 
-### Ease in challenge appearance (PerimeterX Human Challenge)
+#### Ease in challenge appearance (PerimeterX Human Challenge)
 Instead of jumping into appearance - add an open animation for the challenge
 
 <details>
@@ -55,16 +69,16 @@ Instead of jumping into appearance - add an open animation for the challenge
 
 </details>
 
-# 1.0.2
+## 1.0.2
 
-## Bug Fixes
+### Bug Fixes
 
-### Fix hiding Google's reCAPTCHA overlay
+#### Fix hiding Google's reCAPTCHA overlay
 Modify reCAPTCHA's selector to fix auto-adjust z-index after its appearance
 
-# 1.0.1
+## 1.0.1
 
-## Bug Fixes
+### Bug Fixes
 
-### Make sure we're not hiding recaptcha's pedestrain crossing recogniser
+#### Make sure we're not hiding recaptcha's pedestrain crossing recogniser
 In case an element already existed on the page with z-index 2000000000 (which is Google's reCAPTCHA z-index), our modal was showing over it. This observer looks for Google's reCAPTCHA overlay and moves our modal **below** it.
