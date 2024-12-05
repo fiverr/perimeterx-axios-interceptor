@@ -1,3 +1,7 @@
+# 1.2.0
+
+- Add "compact" mode to modal configuration to reduce the size of the modal - helps to fit in tight spaces like iframes
+
 # 1.1.3
 
 ## Improvement
